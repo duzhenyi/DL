@@ -1,0 +1,259 @@
+﻿@{
+    ViewData["Title"] = "资源模块";
+    var tags = ViewBag.Tags as List<AdoTag>;
+}
+<div id="container">
+
+    <div class="layui-col-220">
+        <div class="layui-nav-title">
+            所属栏目
+        </div>
+        <div class="role-tab">
+            <div id="sysColumnTree" class="layui-tree-cus"></div>
+        </div>
+    </div>
+    <div class="right-col-body">
+        <div class="list-wall">
+            <div class="layui-collapse">
+                <div class="layui-colla-item">
+                    <h2 class="layui-colla-title">条件筛选</h2>
+                    <div class="layui-colla-content layui-show">
+                        <div class="layui-form list-search">
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">标题</label>
+                                <div class="layui-input-inline">
+                                    <input class="layui-input" id="titleSearch" autocomplete="off" placeholder="请输入标题查询">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">所属标签</label>
+                                <div class="layui-input-inline">
+                                    <select id="tagIdSearch" lay-search="">
+                                        <option value="">-请选择所属标签-</option>
+                                        @foreach (AboutEnum t in Enum.GetValues(typeof(AboutEnum)))
+                                        {
+                                            <optgroup label="@t.GetEnumDisplayName()">
+                                                @foreach (var item in tags.Where(m => m.TagType == (int)t))
+                                                {
+                                                    <option value="@item.ID">@item.TagName</option>
+                                                }
+                                            </optgroup>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">是否审核</label>
+                                <div class="layui-input-inline">
+                                    <select id="auditSearch">
+                                        <option value="">-请选择审核状态-</option>
+                                        @foreach (AuditEnum t in Enum.GetValues(typeof(AuditEnum)))
+                                        {
+                                            <option value="@((int)t)">@t.GetEnumDisplayName()</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">是否启用</label>
+                                <div class="layui-input-inline">
+                                    <input type="checkbox" id="isEnableSearch" lay-text="展示|隐藏" lay-skin="switch">
+                                </div>
+                            </div>
+                            <button type="button" class="layui-btn layui-btn-sm" data-type="search"><i class="layui-icon layui-icon-search"></i>搜索</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="layui-table" id="tablist" lay-filter="tabFilter"></table>
+        </div>
+
+        <script type="text/html" id="editTool">
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i> 修改</a>
+        </script>
+
+
+        <script type="text/html" id='isEnableSwitch'>
+            <input type='checkbox' id='IsEnableSwitch' value="true" lay-skin="switch" lay-text="展示|隐藏" {{ d.IsEnable?'checked':''}} disabled=''>
+        </script>
+        <script type="text/html" id='audit'>
+            {{# if(d.Audit ==0){ }}
+            <span class="layui-badge layui-bg-orange">正在审核</span>
+            {{# }else if(d.Audit ==1){ }}
+            <span class="layui-badge layui-bg-green">审核通过</span>
+            {{# }else if(d.Audit ==2){ }}
+            <span class="layui-badge layui-bg-cyan">审核失败</span>
+            {{# } }}
+        </script>
+
+        <script type="text/html" id="toolBarId">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon layui-icon-add-circle"></i>添加</button>
+                <button class="layui-btn layui-btn-sm" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</button>
+            </div>
+        </script>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        layui.config({
+            base: '/js/modules/'
+        }).use(['element', 'form', 'table', 'layer', 'jquery', 'api', 'tree'],
+            function () {
+
+                var table = layui.table,
+                    layer = layui.layer,
+                    tree = layui.tree,
+                    $ = layui.jquery,
+                    api = layui.api;
+
+
+                table.render({
+                    elem: '#tablist',
+                    id: 'tables',
+                    headers: api.getToken(),
+                    url: '/Ado/Download/GetPages',
+                    page: true,
+                    page: { limits: [10, 20, 50, 100], groups: 8 },
+                    toolbar: '#toolBarId', //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+                    defaultToolbar: ['filter', 'exports', 'print'],
+                    cols: [
+                        [
+                            { type: 'checkbox', fixed: 'left' },
+                            { field: 'SysColumnId', title: '所属栏目', align: 'left' },
+                            { field: 'Title', title: '标题', align: 'left' },
+                            { field: 'TagId', title: '所属标签', align: 'left' },
+                            { field: 'DownTotalCount', title: '下载量', align: 'left' },
+                            { field: 'Hits', title: '访问量', align: 'left' },
+                            { field: 'Sort', title: '', align: 'left' },
+                            { field: 'IsEncrypt', title: '是否加密', align: 'center', templet: '#isEncryptSwitch' },
+                            { field: 'Pwd', title: '加密密码', align: 'left' },
+                            {
+                                field: 'IsTop', title: '相关属性', align: 'left', templet: function (d) {
+                                    return attrHtml(d);
+                                }
+                            },
+                            { field: 'Audit', title: '是否审核', align: 'center', templet: '#audit' },
+                            { field: 'IsEnable', title: '是否启用', align: 'center', templet: '#isEnableSwitch' },
+                            { field: 'Creator', title: '创建人', align: 'left' },
+                            { field: 'CreateTime', title: '创建时间', align: 'left' },
+                            { field: 'Remark', title: '备注', align: 'left' },
+                            { width: 100, title: '操作', templet: '#editTool' }
+                        ]
+                    ]
+                });
+
+                var sysColumnId = '', active = {
+                    loadtree() {
+                        api.ajax('Sys/Column/GetTree', 'GET', {}, function (res) {
+                            tree.render({
+                                elem: '#sysColumnTree',
+                                data: res,
+                                onlyIconControl: true,
+                                click: function (obj) {
+                                    sysColumnId = obj.data.id;
+                                    active.reload();
+                                }
+                            });
+                        });
+                    },
+                    //刷新右侧表格
+                    reload: function () {
+                        table.reload('tables', {
+                            page: { curr: 1 },
+                            where: {
+                                sysColumnId: sysColumnId,
+                                title: $('#titleSearch').val(),
+                                tagId: $('#tagIdSearch').val(),
+                                audit: $('#auditSearch').val(),
+                                isEnable: $('#isEnableSearch')[0].checked,
+
+                            }
+                        });
+                    },
+                    search: function () {
+                        active.reload();
+                    },
+
+                    //弹出添加页面
+                    add: function () {
+                        api.Open('添加', '/Ado/Download/Modify', '1024px', '768px', function () {
+                            active.reload();
+                         }, true, false);
+                    },
+                    //删除右侧表格的项
+                    del: function () {
+                        var checkStatus = table.checkStatus('tables'), data = checkStatus.data;
+                        if (data.length === 0) {
+                            api.error("请选择要删除的项目");
+                            return;
+                        }
+                        var ids = '';
+                        $.each(data, function (i, item) {
+                            ids += item.ID + ",";
+                        });
+                        if (ids == '') {
+                            api.error("请选择要删除的项目");
+                            return;
+                        }
+                        layer.confirm('确定要执行批量删除吗？', function (index) {
+                            layer.close(index);
+                            var loadindex = layer.load(1, {
+                                shade: [0.1, '#000']
+                            });
+                            api.ajax('Ado/Download/Delete/', 'post', { ids: ids }, function (res) {
+                                layer.close(loadindex);
+                                if (res.statusCode === 200) {
+                                    active.reload();
+                                    api.success(res.msg);
+                                } else {
+                                    api.error(res.msg);
+                                }
+                            });
+                        });
+
+                    }
+                };
+
+                active.loadtree();
+                //按钮点击事件
+                $('.list-search .layui-btn').on('click', function () {
+                    var type = $(this).data('type');
+                    active[type] ? active[type].call(this) : '';
+                });
+                table.on('toolbar(tabFilter)', function (obj) {
+                    active[obj.event] ? active[obj.event].call(this) : '';
+                });
+                //监听工具条
+                table.on('tool(tabFilter)', function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'edit') {
+                        api.Open('编辑', '/Ado/Download/Modify/?id=' + data.ID, '1024px', '768px', function () {
+                            active.reload();
+                        }, true, false);
+                    }
+                });
+            });
+
+        function attrHtml(e) {
+            var h = '';
+            if (e.IsTop) {
+                h += '<span class="layui-badge layui-bg-cyan">推荐</span>';
+            }
+            if (e.IsHot) {
+                h += '<span class="layui-badge layui-bg-cyan">热点</span>';
+            }
+            if (e.IsComment) {
+                h += '<span class="layui-badge layui-bg-cyan">评论</span>';
+            }
+            if (e.IsEncrypt) {
+                h += '<span class="layui-badge layui-bg-cyan">加密</span>';
+            }
+            return h;
+        }
+    </script>
+}

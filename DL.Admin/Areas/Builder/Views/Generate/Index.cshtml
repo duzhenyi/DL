@@ -1,0 +1,255 @@
+﻿
+@{
+    ViewData["Title"] = "代码生成";
+}
+
+<div id="container">
+    <div class="list-wall ">
+        <div class="layui-collapse">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">数据库优先</h2>
+                <div class="layui-colla-content layui-show">
+                    <form class="layui-form form-cus" action="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">数据库连接</label>
+                            <div class="layui-input-block">
+                                <textarea name="DbConn" lay-verify="required" lay-verType="tips" lay-reqText="请输入连接地址"  placeholder="请输入连接地址" class="layui-textarea">Data Source=.;Initial Catalog=DL;Persist Security Info=True;User ID=sa;password=123456</textarea>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">数据库类型</label>
+                                <div class="layui-input-inline">
+                                    <select name="DbType" lay-verify="required" lay-filter="DbType">
+                                        <option value="0">SQLServer</option>
+                                        <option value="1">Mysql</option>
+                                        <option value="2">Oracle</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <div class="layui-input-inline">
+                                    <button type="submit" lay-submit="" lay-filter="loadTable" id="loadTable" class="layui-btn layui-btn-normal">加载表</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">数据库表</label>
+                                <div class="layui-input-inline layui-form" lay-filter="DbTable">
+                                    <select name="DbTable" lay-search="">
+                                        <option value="">请选择数据库表</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="layui-inline">
+                                <div class="layui-input-inline">
+                                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="loadField">加载字段</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <table class="layui-table" id="tablist" lay-filter="tool"></table>
+
+        <form class="layui-form form-cus" action="">
+            <div class="layui-form-item">
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">区域名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="AreaName" lay-verify="required" lay-verType="tips" lay-reqText="请输入区域名称" placeholder="请输入区域名称" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">实体名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="ModelName" lay-verify="required" lay-verType="tips" lay-reqText="请输入实体名称" placeholder="请输入实体名称" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">模块名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="ControllerName" lay-verify="required" lay-verType="tips" lay-reqText="请输入模块名称" placeholder="请输入模块名称" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">模块别名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="DescName" lay-verify="required" lay-verType="tips" lay-reqText="请输入模块别名" placeholder="请输入模块别名" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="codeBuilder">生成</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <script type="text/html" id="IsSearchTool">
+        <input type="checkbox" name="IsSearch" lay-skin="switch" value="{{d.FieldIndex}}" lay-filter="IsSearchFilter" lay-text="开启|禁用" {{ d.IsSearch?'checked':''}}>
+    </script>
+    <script type="text/html" id="IsShowListTool">
+        <input type="checkbox" name="IsShowList" lay-skin="switch" value="{{d.FieldIndex}}" lay-filter="IsShowListFilter" lay-text="开启|禁用" {{ d.IsShowList?'checked':''}}>
+    </script>
+    <script type="text/html" id="IsShowFormTool">
+        <input type="checkbox" name="IsShowForm" lay-skin="switch" value="{{d.FieldIndex}}" lay-filter="IsShowFormFilter" lay-text="开启|禁用" {{ d.IsShowForm?'checked':''}}>
+    </script>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        layui.config({
+            base: '/js/modules/'
+        }).use(['element', 'form', 'table', 'layer', 'jquery', 'api'],
+            function () {
+                var form = layui.form,
+                    table = layui.table,
+                    $ = layui.jquery,
+                    api = layui.api;
+
+
+                var active = {
+                    loadTable: function (data) {
+                        var d = {
+                            DbConn: data.field.DbConn,
+                            DbType: data.field.DbType,
+                        };
+                        if (d.DbConn.length <= 0) {
+                            api.warning("请输入数据库连接字符串");
+                            return;
+                        }
+                        if (d.DbType.length <= 0) {
+                            api.warning("请选择数据库类型");
+                            return;
+                        }
+                        api.ajax('Builder/Generate/GetTable', 'POST', d, function (res) {
+                            if (res.statusCode == 200) {
+                                var $html = '';
+                                $.each(res.data, function (index, item) {
+                                    $html += "<option value='" + item + "'>" + item + "</option>";
+                                });
+                                $("select[name='DbTable']").append($html);
+                                form.render('select', 'DbTable'); //更新 lay-filter="DbType" 所在容器内的全部 select 状态
+                            }
+                        });
+                    },
+                    loadField: function (data) {
+                        table.render({
+                            elem: '#tablist',
+                            height: $(window).height() - 150,
+                            headers: api.getToken(),
+                            url: '/Builder/Generate/GetField',
+                            id: 'tables',
+                            method: 'POST',
+                            contentType: 'application/json',
+                            where: {
+                                DbConn: data.field.DbConn,
+                                DbType: data.field.DbType,
+                                TableName: data.field.DbTable
+                            },
+                            cols: [
+                                [
+                                    { type: 'checkbox' },
+                                    { field: 'FieldIndex', title: '', align: "left" },
+                                    { field: 'FieldName', title: '字段名称', align: "left" },
+                                    { field: 'FiledType', title: '字段类型', align: "left" },
+                                    { field: 'FiledLength', title: '字段长度', align: "left" },
+                                    { field: 'IsIdentity', title: '是否标识列', align: "center" },
+                                    { field: 'IsKey', title: '是否主键', align: "center" },
+                                    { field: 'IsNullable', title: '是否为空', align: "left" },
+                                    { field: 'DefaultVal', title: '默认值', align: "left" },
+                                    { field: 'FieldDesc', title: '字段描述', align: "left" },
+                                    { field: 'ByteLength', title: '占用字节数', align: "left" },
+                                    { field: 'DecimalLength', title: '小数位数', align: "left" },
+                                    { field: 'IsSearch', title: '搜索条件', align: "center", templet: '#IsSearchTool' },
+                                    { field: 'IsShowList', title: '列表展示', align: "center", templet: '#IsShowListTool' },
+                                    { field: 'IsShowForm', title: '表单展示', align: "center", templet: '#IsShowFormTool' }
+                                ]
+                            ]
+                        });
+                    },
+                    codeBuilder: function (data) {
+                        var checkStatus = table.checkStatus('tables'), tbData = checkStatus.data;
+                        var buildDto = {
+                            modelName: data.field.ModelName,
+                            areaName: data.field.AreaName,
+                            controllerName: data.field.ControllerName,
+                            descName :data.field.DescName,
+                            tableName: $("select[name='DbTable']").select().val(),
+                            fieldDtos: tbData
+                        };
+
+                        api.ajax('Builder/Generate/Build', 'POST', buildDto, function (res) {
+                            api.success(res.msg);
+                        });
+                    }
+                };
+                //监听搜索条件操作
+                form.on('switch(IsSearchFilter)', function (obj) {
+                    var d = table.cache.tables;
+                    for (var i = 0; i < d.length; i++) {
+                        if (d[i].FieldIndex == obj.value) {
+                            d[i].IsSearch = obj.elem.checked;
+                            break;
+                        }
+                    }
+                });
+                //监听列表展示操作
+                form.on('switch(IsShowListFilter)', function (obj) {
+
+                    var d = table.cache.tables;
+                    for (var i = 0; i < d.length; i++) {
+                        if (d[i].FieldIndex == obj.value) {
+                            d[i].IsShowList = obj.elem.checked;
+                            break;
+                        }
+                    }
+                });
+                //监听表单展示操作
+                form.on('switch(IsShowFormFilter)', function (obj) {
+                    var d = table.cache.tables;
+                    for (var i = 0; i < d.length; i++) {
+                        if (d[i].FieldIndex == obj.value) {
+                            d[i].IsShowForm = obj.elem.checked;
+                            break;
+                        }
+                    }
+                });
+                form.on('submit(loadTable)', function (data) {
+                    active.loadTable(data);
+                    return false;
+                });
+                form.on('submit(loadField)', function (data) {
+                    active.loadField(data);
+                    return false;
+                });
+                form.on('submit(codeBuilder)', function (data) {
+                    active.codeBuilder(data);
+                    return false;
+                });
+
+                $('#DbType').on('change', function () { 
+                    layer.tips(this.value + '：' + obj.elem.checked, obj.othis);
+                });
+            });
+    </script>
+}
+
+<!--
+MySql	Data Source=127.0.0.1;Port=3306;User ID=root;Password=root; Initial Catalog=cccddd;Charset=utf8; SslMode=none;Min pool size=1
+PostgreSQL	Host=192.168.164.10;Port=5432;Username=postgres;Password=123456; Database=tedb;Pooling=true;Minimum Pool Size=1
+SqlServer	Data Source=.;Integrated Security=True;Initial Catalog=freesqlTest;Pooling=true;Min Pool Size=1
+Oracle	user id=user1;password=123456; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1
+Sqlite	Data Source=|DataDirectory|\document.db; Attachs=xxxtb.db; Pooling=true;Min Pool Size=1
+-->

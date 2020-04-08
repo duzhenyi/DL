@@ -1,0 +1,84 @@
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using DL.Admin.Filters;
+using DL.Domain.Models.{AreaName}Models;
+using DL.Domain.PublicModels;
+using DL.IService.{AreaName}IService;
+using Microsoft.AspNetCore.Mvc;
+{UsingDto}
+namespace DL.Admin.Areas.{AreaName}.Controllers
+{
+    /// <summary>
+    /// {DescName}
+    /// </summary>
+    [Area("{AreaName}")]
+    [Route("{AreaName}/{ControllerName}")]
+    public class {ControllerName}Controller : BaseController
+    {
+        private readonly I{AreaName}{ControllerName}Service _{areaName}{ControllerName}Service;
+        public {ControllerName}Controller(I{AreaName}{ControllerName}Service {areaName}{ControllerName}Service)
+        {
+            _{areaName}{ControllerName}Service = {areaName}{ControllerName}Service;
+        }
+
+        [HttpGet]
+        [Route("Index")]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Route("Modify")]
+        public IActionResult Modify(string id)
+        {
+            return View(_{areaName}{ControllerName}Service.GetByIDAsync(id).Result.data);
+        }
+         
+        /// <summary>
+        /// 查询列表
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetPages")]
+        public async Task<JsonResult> GetPages({PageParm}PageParm request)
+        {
+            var res = await _{areaName}{ControllerName}Service.GetPagesAsync(request);
+            return Json(new { code = 0, msg = "success", count = res.data.TotalItems, data = res.data.Items });
+        }
+
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, AuthorizeFilter(Controller = "{ControllerName}", Action = "Add")]
+        [Route("Add")]
+        public async Task<ApiResult<string>> Add{ControllerName}([FromBody]{AreaName}{ControllerName} model)
+        { 
+            return await _{areaName}{ControllerName}Service.AddAsync(model);
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, AuthorizeFilter(Controller = "{ControllerName}", Action = "Delete")]
+        [Route("Delete")]
+        public async Task<ApiResult<string>> Delete{ControllerName}([FromBody]DelParams delParams)
+        {
+            return await _{areaName}{ControllerName}Service.DelAsync(delParams.ids);
+        }
+
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, AuthorizeFilter(Controller = "{ControllerName}", Action = "Update")]
+        [Route("Update")]
+        public async Task<ApiResult<string>> Update{ControllerName}([FromBody]{AreaName}{ControllerName} parm)
+        {
+            return await _{areaName}{ControllerName}Service.ModifyAsync(parm);
+        }
+    }
+}

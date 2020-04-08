@@ -1,0 +1,163 @@
+﻿@{
+    ViewData["Title"] = "栏目管理";
+}
+<div id="container">
+    <div class="list-wall">
+        <div class="layui-collapse">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">条件筛选</h2>
+                <div class="layui-colla-content layui-show">
+                    <div class="layui-form list-search">
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">栏目标题</label>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" id="titleSearch" autocomplete="off" placeholder="请输入栏目标题查询">
+                            </div>
+                        </div>
+                        <button type="button" class="layui-btn layui-btn-sm" data-type="search"><i class="layui-icon layui-icon-search"></i>搜索</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="layui-table" id="tablist" lay-filter="tabFilter"></table>
+    </div>
+
+    <script type="text/html" id="editTool">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i> 修改</a>
+    </script>
+
+    <script type="text/html" id='isEnableSwitch'>
+        <input type='checkbox' id='IsEnableSwitch' value="true" lay-skin="switch" lay-text="展示|隐藏" {{ d.IsEnable?'checked':''}} disabled=''>
+    </script>
+
+
+    <script type="text/html" id="toolBarId">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon layui-icon-add-circle"></i>添加</button>
+            <button class="layui-btn layui-btn-sm" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</button>
+        </div>
+    </script>
+
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        layui.config({
+            base: '/js/modules/'
+        }).use(['element', 'form', 'table', 'layer', 'jquery', 'api', 'laydate'],
+            function () {
+
+                var table = layui.table,
+                    layer = layui.layer,
+                    $ = layui.jquery,
+                    api = layui.api;
+
+
+                table.render({
+                    elem: '#tablist',
+                    id: 'tables',
+                    headers: api.getToken(),
+                    url: '/Sys/Column/GetPages',
+                    page: true,
+                    page: { limits: [10, 20, 50, 100], groups: 8 },
+                    toolbar: '#toolBarId', //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+                    defaultToolbar: ['filter', 'exports', 'print'],
+                    cols: [
+                        [
+                            { type: 'checkbox', fixed: 'left' },
+                            { field: 'Title', title: '栏目标题', align: 'left' },
+                            { field: 'EnTitle', title: '英文名称', align: 'left' },
+                            { field: 'SubTitle', title: '副标题', align: 'left' },
+                            { field: 'ParentTitle', title: '父栏目', align: 'left' },
+                            { field: 'Layer', title: '等级', align: 'left' },
+                            { field: 'Sort', title: '排序', align: 'left' },
+                            { field: 'LinkUrl', title: '链接地址', align: 'left' },
+                            { field: 'KeyWord', title: '关键词', align: 'left' },
+                            { field: 'Description', title: '描述', align: 'left' },
+                            { field: 'IsEnable', title: '是否启用', align: 'center', templet: '#isEnableSwitch' },
+                            { field: 'Creator', title: '创建人', align: 'left' },
+                            { field: 'CreateTime', title: '创建时间', align: 'left' },
+                            { field: 'Remark', title: '备注', align: 'left' },
+                            { width: 100, title: '操作', templet: '#editTool' }
+                        ]
+                    ]
+                });
+
+                var active = {
+                    //刷新右侧表格
+                    reload: function () {
+                        table.reload('tables', {
+                            page: { curr: 1 },
+                            where: {
+                                title: $('#titleSearch').val(),
+
+                            }
+                        });
+                    },
+                    search: function () {
+                        active.reload();
+                    },
+
+                    //弹出添加页面
+                    add: function () {
+                        api.Open('添加', '/Sys/Column/Modify', '620px', '700px', function () {
+                            active.reload();
+                        });
+                    },
+                    //删除右侧表格的项
+                    del: function () {
+                        var checkStatus = table.checkStatus('tables'), data = checkStatus.data;
+                        if (data.length === 0) {
+                            api.error("请选择要删除的项目");
+                            return;
+                        }
+                        var ids = '';
+                        $.each(data, function (i, item) {
+                            ids += item.ID + ",";
+                        });
+                        if (ids == '') {
+                            api.error("请选择要删除的项目");
+                            return;
+                        }
+                        layer.confirm('确定要执行批量删除吗？', function (index) {
+                            layer.close(index);
+                            var loadindex = layer.load(1, {
+                                shade: [0.1, '#000']
+                            });
+                            api.ajax('Sys/Column/Delete/', 'post', { ids: ids }, function (res) {
+                                layer.close(loadindex);
+                                if (res.statusCode === 200) {
+                                    active.reload();
+                                    api.success(res.msg);
+                                } else {
+                                    api.error(res.msg);
+                                }
+                            });
+                        });
+
+                    }
+                };
+
+                //按钮点击事件
+                $('.list-search .layui-btn').on('click', function () {
+                    var type = $(this).data('type');
+                    active[type] ? active[type].call(this) : '';
+                });
+                table.on('toolbar(tabFilter)', function (obj) {
+                    active[obj.event] ? active[obj.event].call(this) : '';
+                });
+                //监听工具条
+                table.on('tool(tabFilter)', function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'edit') {
+                        api.Open('编辑', '/Sys/Column/Modify/?id=' + data.ID, '620px', '700px', function () {
+                            active.reload();
+                        })
+                    }
+                });
+            });
+    </script>
+}

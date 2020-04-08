@@ -1,0 +1,118 @@
+﻿@{
+    ViewData["Title"] = "首页";
+}
+
+<style>
+
+    /** {
+        font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu
+    }
+    /*磁贴自定义样式
+    .win10-block-content-text {
+        line-height: 44px;
+        text-align: center;
+        font-size: 16px;
+    }*/
+</style>
+<div id="win10">
+    <div class="desktop">
+        <iframe src="/Sys/Admin/Index"></iframe>
+        <div id="win10-shortcuts" class="shortcuts-hidden">
+            @*<div class="shortcut" onclick="window.open('/Sys/Organize/Index')">
+                <i class="icon fa fa-fw fa-bank red"></i>
+                <div class="title">组织部门</div>
+            </div>
+
+            <div class="shortcut" onclick="window.open('/Sys/CodeVal/Index')">
+                <i class="icon fa fa-fw fa-bank red"></i>
+                <div class="title">字典</div>
+            </div>
+            <div class="shortcut" onclick="window.open('/Sys/Menu/Index')">
+                <i class="icon fa fa-fw fa-bank red"></i>
+                <div class="title">菜单</div>
+            </div>
+            <div class="shortcut" onclick="window.open('/Sys/Role/Index')">
+                <i class="icon fa fa-fw fa-bank red"></i>
+                <div class="title">角色</div>
+            </div>
+
+            <div class="shortcut" onclick="window.open('/Sys/Admin/Index')">
+                <i class="icon fa fa-fw fa-bank red"></i>
+                <div class="title">管理员</div>
+            </div>
+            <div class="shortcut" onclick="window.open('/Sys/Log/Index')">
+                <i class="icon fa fa-fw fa-bank red"></i>
+                <div class="title">日志</div>
+            </div>
+            <div class="shortcut" onclick="window.open('/Sys/Img/Index')">
+                <i class="icon fa fa-fw fa-bank red"></i>
+                <div class="title">图片</div>
+            </div>*@
+        </div>
+       
+        <div id="win10-desktop-scene"></div>
+    </div>
+    <div id="win10-menu" class="hidden">
+        <div class="list win10-menu-hidden animated animated-slideOutLeft" id="menu">
+
+            <div class="item" onclick=" Win10.exit();"><i class="black icon fa fa-power-off fa-fw"></i>关闭</div>
+        </div>
+        <div class="blocks">
+            <div class="menu_group">
+                <div class="title">
+                    其他工具
+                </div>
+                <div loc="1,1" size="6,3" class="block">
+                    <div class="content red detail">
+                        <iframe style="margin-top: 10px" frameborder="no" border="0" marginwidth="0" marginheight="0" width=264 height=110 src="https://music.163.com/outchain/player?type=2&id=32083690&auto=1&height=110"></iframe>
+                    </div>
+                    <div class="content red cover">
+                        <img width="264" style="position: relative;top: -50px;" src="/images/presentation/wangyiyun.gif" />
+                    </div>
+                </div>
+                <div loc="1,4" size="6,3" class="block">
+                    <div class="content blue" style="font-size: 30px;text-align: center">
+                        <object codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="264" height="132" id="honehoneclock" align="middle">
+                            <param name="allowScriptAccess" value="always">
+                            <param name="movie" value="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.swf">
+                            <param name="quality" value="high">
+                            <param name="bgcolor" value="#ffffff">
+                            <param name="wmode" value="transparent">
+                            @*<embed wmode="transparent" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.swf" quality="high" bgcolor="#ffffff" width="180" height="80" name="honehoneclock" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">
+                                <embed width="100" height="100" align="middle" wmode="transparent" quality="high" src="http://images.cnblogs.com/cnblogs_com/csharp/clock.swf" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash">*@
+                        </object>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div id="win10-menu-switcher"></div>
+    </div>
+    <div id="win10_command_center" class="hidden_right">
+        <div class="title">
+            <h4 style="float: left">消息中心 </h4>
+            <span id="win10_btn_command_center_clean_all">全部清除</span>
+        </div>
+        <div class="msgs"></div>
+    </div>
+    <div id="win10_task_bar">
+        <div id="win10_btn_group_left" class="btn_group">
+            <div id="win10_btn_win" class="btn"><span class="fa fa-windows"></span></div>
+            <div class="btn" id="win10-btn-browser"><span class="fa fa-internet-explorer"></span></div>
+        </div>
+        <div id="win10_btn_group_middle" class="btn_group"></div>
+        <div id="win10_btn_group_right" class="btn_group">
+            <div class="btn" id="win10_btn_time">
+                <!--0:00<br/>-->
+
+                <!--1993/8/13-->
+            </div>
+            <div class="btn" id="win10_btn_command"><span id="win10-msg-nof" class="fa fa-comment-o"></span></div>
+            <div class="btn" id="win10_btn_show_desktop"></div>
+        </div>
+    </div>
+    @section Scripts{
+        <script type="text/javascript" src="~/win10/js/win10.js"></script>
+        <script src="~/js/home/index.js"></script>
+    }
+</div>

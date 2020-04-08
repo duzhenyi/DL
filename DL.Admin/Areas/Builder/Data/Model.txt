@@ -1,0 +1,14 @@
+﻿using SqlSugar;
+using System;
+
+namespace DL.Domain.Models.{AreaName}
+{
+    /// <summary>
+    /// {DescName}
+    /// </summary>
+    [SugarTable("{TableName}")]
+    public class {ModelName} 
+    {
+         {Models}
+    }
+}

@@ -1,0 +1,174 @@
+﻿@{
+    ViewData["Title"] = "菜单管理";
+}
+
+<div id="container">
+    <div class="list-wall">
+        <div class="layui-form list-search">
+            <button type="button" class="layui-btn layui-btn-sm" data-type="add"><i class="layui-icon  layui-icon-add-circle"></i>新增</button>
+            <button type="button" class="layui-btn layui-btn-sm" data-type="del"><i class="layui-icon layui-icon-delete"></i>删除</button>
+        </div>
+        <table class="layui-table" id="tablist" lay-filter="tool"></table>
+    </div>
+
+    <script type="text/html" id="tool">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-bianji"></i> 修改</a>
+    </script>
+    <script type="text/html" id="isEnableSwitch">
+        <input type="checkbox" name="IsEnable" value="{{d.id}}" lay-skin="switch" lay-text="展示|隐藏" lay-filter="statusedit" {{ d.isEnable?'checked':''}} disabled="">
+    </script>
+    <script type="text/html" id="isDeskTopTool">
+        {{# if(d.url !="" && d.type !=3 ){ }}
+        <input type="checkbox" name="IsDeskTop" value="{{d.id}}" lay-skin="switch" lay-text="取消|置顶" lay-filter="toDeskTop" {{ d.isDeskTop ? 'checked' : '' }}>
+        {{# } }}
+    </script>
+</div>
+
+
+@section Scripts{
+    <script src="~/layui/layui.js"></script>
+    <script type="text/javascript">
+        layui.config({
+            base: '/js/modules/'
+        }).extend({
+            treeTable: 'treeTable/treeTable',
+        }).use(['form', 'table', 'layer', 'treeTable', 'jquery', 'api'],
+            function () {
+                var form = layui.form,
+                    table = layui.table,
+                    layer = layui.layer,
+                    $ = layui.jquery,
+                    api = layui.api,
+                    treeTable = layui.treeTable;
+
+                var insTb = treeTable.render({
+                    elem: '#tablist',
+                    id: 'tables',
+                    //style: 'margin-top:0;',
+                    height: 'full-150',
+                    headers: api.getToken(),
+                    tree: {
+                        iconIndex: 1,// 折叠图标显示在第几列
+                        isPidData: false,  // 是否是pid形式数据
+                    },
+                    cols: [
+                        { type: 'checkbox' },
+                        { field: 'name', title: '菜单名称', fixed: 'left' },
+                        { field: 'enCode', title: '权限名称' },
+                        {
+                            field: 'type', title: '类型', align: 'center', templet: function (d) {
+                                if (d.type == 1) {
+                                    return "<button class='layui-btn layui-btn-danger  layui-btn-radius layui-btn-xs'>模块</button>";
+                                } else if (d.type == 2) {
+                                    return "<button class='layui-btn layui-btn-warm  layui-btn-radius layui-btn-xs'>菜单</button>";
+                                } else if (d.type == 3) {
+                                    return "<button class='layui-btn layui-btn-normal  layui-btn-radius layui-btn-xs'>按钮</button>";
+                                }
+                                return "";
+                            }
+                        },
+                        { field: 'url', title: '请求地址' },
+                        {
+                            field: 'icon', title: '图标', align: "center", templet: function (d) {
+                                if (d.icon != "") {
+                                    return "<i class='layui-icon " + d.icon + "' style='color:" + d.iconColor + "'></i>";
+                                }
+                                return "";
+                            }
+                        },
+                        {
+                            field: 'openType', title: '打开方式', templet: function (d) {
+                                if (d.openType == 1) {
+                                    return "弹窗";
+                                } else if (d.openType == 2) {
+                                    return "新页面";
+                                }
+                                return "";
+                            }
+                        },
+                        { field: 'isDeskTop', title: '置顶桌面', align: "center", templet: '#isDeskTopTool' },
+
+                        { field: 'isEnable', title: '可见', templet: '#isEnableSwitch' },
+                        { field: 'sort', title: '排序', align: "center" },
+                        { title: '操作', templet: '#tool' }
+                    ],
+                    reqData: function (data, callback) {
+                        $.get('/Sys/Menu/GetTreeTableAsync', function (res) {
+                            callback(res.data);
+                        });
+                    },
+                });
+
+                var active = {
+                    add: function () {
+                        api.Open('添加菜单', '/Sys/Menu/Modify', '800px', '660px', function () {
+                            insTb.reload();
+                        });
+                    },
+                    del: function () { 
+                        var data = insTb.checkStatus();
+                        if (data.length === 0) {
+                            api.warning("请选择要删除的项目~");
+                            return;
+                        }
+                        var ids = '';
+                        $.each(data, function (i, item) {
+                            ids += item.id + ",";
+                        });
+                        layer.confirm('确定要执行批量删除吗？', function (index) {
+                            layer.close(index);
+                            var loadindex = layer.load(1, {
+                                shade: [0.1, '#000']
+                            });
+                            api.ajax('Sys/Menu/Delete/', 'post', { ids: ids }, function (res) {
+                                layer.close(loadindex);
+                                if (res.statusCode === 200) {
+                                    insTb.reload();
+                                    api.success(res.msg);
+                                } else {
+                                    api.error(res.msg);
+                                }
+                            });
+                        });
+
+                    }
+                };
+
+                $('.list-search .layui-btn').on('click', function () {
+                    var type = $(this).data('type');
+                    active[type] ? active[type].call(this) : '';
+                });
+
+                treeTable.on('tool(tablist)', function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'edit') {
+                        api.Open('编辑菜单', '/Sys/Menu/Modify/?id=' + data.id, '800px', '660px', function () {
+                            insTb.reload();
+                        })
+                    }
+                });
+
+                //监听授权操作
+                form.on('switch(toDeskTop)', function (obj) {
+                    //开始提交信息
+                    var index = layer.load(1, {
+                        shade: [0.1, '#fff']
+                    });
+                    api.ajax("Sys/Menu/ToDeskTop", 'post', { id: this.value, isDeskTop: obj.elem.checked }, function (res) {
+                        layer.close(index);
+                        if (res.statusCode === 200) {
+                            if (obj.elem.checked) {
+                                api.success('设置成功~');
+                            }
+                            else {
+                                api.success('取消设置~');
+                            }
+                            insTb.reload();
+                        } else {
+                            api.error(res.msg);
+                        }
+                    });
+                });
+            });
+    </script>
+}

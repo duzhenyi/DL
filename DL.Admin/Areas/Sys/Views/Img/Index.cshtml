@@ -1,0 +1,695 @@
+﻿@{
+    ViewData["Title"] = "图片管理";
+}
+<style type="text/css">
+
+    .picframe-wall {
+        position: relative;
+        visibility: visible;
+        height: 490px;
+        border-top: 1px solid #eef0f3;
+    }
+
+    .picframe-left {
+        width: 200px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        border-right: 1px solid #eef0f3;
+    }
+
+    .picframe-footer {
+        padding: 15px 20px;
+        position: fixed;
+        bottom: 0;
+        right: 10px;
+        border-top: 1px solid #eef0f3;
+    }
+
+        .picframe-footer button {
+            margin-left: 15px;
+            padding: 5px 25px;
+            border-radius: 30px;
+            line-height: initial;
+        }
+
+    .pf-title {
+        border-bottom: 1px solid #eef0f3;
+        padding: 8px 15px;
+        height: 33px;
+        line-height: 33px;
+    }
+
+        .pf-title strong {
+            vertical-align: middle
+        }
+
+    .pic-right {
+        float: right
+    }
+
+    .pic-left {
+        float: left
+    }
+
+    .pic-btn {
+        color: #609ee9;
+        background-color: #EBF2FC;
+        border-color: #EBF2FC;
+        position: relative;
+        transition: all 0.6s ease 0s;
+    }
+
+    .btn {
+        border-radius: 30px;
+        padding: 5px 15px;
+    }
+
+    .pic-btn:hover, .pic-btn:active, .pic-btn:active:enabled, .pic-btn:focus {
+        border: 1px solid #609ee9 !important;
+        background-color: #ffffff;
+        color: #609ee9
+    }
+
+    .pf-title .btn {
+        top: -5px;
+    }
+
+    .zwf {
+        display: inline-block;
+        width: 15px;
+        cursor: pointer;
+        position: relative;
+        z-index: 10
+    }
+
+    .fyt-tree ul {
+        padding-top: 0px;
+        font-size: 12px;
+        height: 393px;
+        overflow: auto
+    }
+
+        .fyt-tree ul li {
+            height: 38px;
+            line-height: 38px;
+        }
+
+            .fyt-tree ul li .list-text {
+                font-size: 12px;
+            }
+
+            .fyt-tree ul li .item-actions span {
+                font-size: 16px;
+            }
+
+            .fyt-tree ul li .item-actions {
+                top: 2px;
+            }
+
+    .fyt-forms {
+        position: absolute;
+        width: 600px;
+        height: 260px;
+        top: 50%;
+        margin-top: -130px;
+        left: 50%;
+        margin-left: -300px;
+        z-index: 1210;
+        background-color: #ffffff;
+        padding-top: 30px;
+        box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    }
+
+    .modal-backdrop {
+        z-index: 1103
+    }
+
+    .fyt-foot-submit {
+        position: inherit;
+    }
+
+    .modal-backdrop.in {
+        opacity: 0.2;
+    }
+
+    .picframe-right {
+        padding-left: 200px;
+    }
+
+    .pf-r-title {
+        padding: 8.5px 15px;
+        border-bottom: 1px solid #eef0f3;
+        line-height: 33px;
+        height: 33px
+    }
+
+        .pf-r-title strong {
+            width: 130px;
+            float: left;
+        }
+
+            .pf-r-title strong span {
+                color: #999;
+                font-weight: 400;
+            }
+
+        .pf-r-title .pf-t-right {
+            float: right
+        }
+
+    .pf-t-right input {
+        float: right;
+        width: 200px;
+        height: 33px;
+        margin-left: 15px;
+    }
+
+    .pf-t-right a {
+        float: right;
+        margin-left: 15px;
+    }
+
+    .pf-t-right .search {
+        display: block;
+        width: 30px;
+        position: absolute;
+        right: 140px;
+        top: 60px;
+        color: #666;
+        cursor: pointer
+    }
+
+    .picbox {
+        padding: 10px 15px;
+        height: 515px;
+        overflow-y: auto;
+        position: relative;
+    }
+
+        .picbox > ul {
+            margin: 0px;
+            padding: 0px
+        }
+
+            .picbox > ul > li {
+                /*width: 165px;*/
+                height: 180px;
+                position: relative;
+                background-color: #FFF;
+                float: left;
+                text-align: center;
+                margin: 0 10px 12px 0;
+            }
+
+                .picbox > ul > li:hover .file-wrapper, .picbox > ul > li.active .file-wrapper {
+                    border: 2px solid #609ee9;
+                }
+
+                .picbox > ul > li:nth-child(4n) {
+                    margin-right: 0px
+                }
+
+                .picbox > ul > li img {
+                    width: 165px;
+                    height: 150px;
+                    object-fit: cover;
+                }
+
+                .picbox > ul > li i.sels {
+                    position: absolute;
+                    right: -2px;
+                    bottom: 26px;
+                    width: 40px;
+                    height: 40px;
+                    display: none;
+                    background: url(/images/success.png) no-repeat;
+                    z-index: 1000
+                }
+
+                .picbox > ul > li.active i.sels {
+                    display: block
+                }
+
+                .picbox > ul > li.active .picbox-pic {
+                    border: 1px solid #609ee9
+                }
+
+                .picbox > ul > li:hover .picbox-view {
+                    display: block;
+                }
+
+                .picbox > ul > li .file-name {
+                    text-align: center;
+                    line-height: 30px;
+                    overflow: hidden;
+                    height: 30px;
+                }
+
+        .picbox .picbox-view {
+            position: absolute;
+            left: 2px;
+            bottom: 28px;
+            height: 28px;
+            width: 100%;
+            background: rgba(0,0,0,0.75);
+            display: none;
+            color: #E5E5E5;
+            line-height: 28px;
+            padding: 0
+        }
+
+            .picbox .picbox-view li {
+                width: 50%;
+                float: left;
+                text-align: center;
+                font-size: 12px;
+            }
+
+                .picbox .picbox-view li a {
+                    display: block;
+                    color: #E5E5E5;
+                    font-size: 14px;
+                }
+
+                    .picbox .picbox-view li a i.layui-icon-delete {
+                        font-size: 22px;
+                    }
+
+    .picframe-wall .layui-btn {
+        border: 1px solid #EBF2FC;
+        line-height: 33px;
+    }
+
+        .picframe-wall .layui-btn .layui-icon {
+            vertical-align: middle;
+        }
+
+    .nopic {
+        text-align: center;
+        padding-top: 16%
+    }
+
+        .nopic span {
+            display: block;
+        }
+
+        .nopic i {
+            font-size: 40px;
+        }
+
+    .picframe-wall .layui-colla-title {
+        background-color: transparent;
+        font-size: 13px;
+        height: 33px;
+        line-height: 33px;
+    }
+
+    .picframe-wall .layui-colla-item, .picframe-wall .layui-collapse, .picframe-wall .layui-colla-content {
+        border-color: #ffffff;
+        font-size: 13px;
+    }
+
+    .picframe-wall .layui-colla-content {
+        padding: 0px;
+    }
+
+        .picframe-wall .layui-colla-content p {
+            cursor: pointer;
+            padding: 8px 0px 8px 36px;
+            position: relative;
+        }
+
+    .picframe-wall .tool {
+        display: none;
+        position: absolute;
+        right: 10px;
+        top: 9px;
+        z-index: 1000
+    }
+
+        .picframe-wall .tool a {
+            font-size: 20px;
+            margin-left: 10px;
+            color: #96a5aa
+        }
+
+    .picframe-wall p:hover .tool {
+        display: block;
+    }
+
+    .picframe-wall .layui-colla-content p:hover, .picframe-wall .layui-colla-content p.active {
+        background-color: #f3f8ff;
+        color: #609ee9;
+    }
+
+    .picframe-tab {
+        height: 50px;
+        line-height: 50px;
+        border-bottom: 1px solid #eef0f3;
+        padding: 0 20px;
+    }
+
+        .picframe-tab span {
+            color: #999;
+            border-bottom: 3px solid transparent;
+            display: inline-block;
+            padding: 0 30px;
+            height: 47px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+            .picframe-tab span.active {
+                color: #609ee9;
+                border-bottom: 3px solid #609ee9;
+            }
+
+    .picframe-left {
+        top: 50px;
+    }
+</style>
+
+<div class="picframe-wall clearfix">
+    <div class="picframe-tab">
+        <span id="local" class="active">本地</span>
+        <span id="yun" class="">云存储</span>
+    </div>
+
+    <div class="picframe-left" id="fytwall">
+        <div class="pf-title">
+            <strong>图片分类</strong>
+            <a class="layui-btn pic-btn pic-right" id="addImgType" href="javascript:void(0)">新增</a>
+        </div>
+        <div class="fyt-bran-top fyt-tree">
+            <div id="tree" class="layui-tree-cus"></div>
+        </div>
+    </div>
+    <div class="picframe-right">
+        <div class="pf-r-title clearfix">
+            <strong>全部图片</strong>
+            <div class="pf-t-right clearfix">
+                <a href="javascript:void(0)" class="layui-btn pic-btn btn-upcloud" id="localup">
+                    <i class="layui-icon layui-icon-upload-drag"></i> 上传图片
+                </a>
+                <span class="search"><i class="layui-icon layui-icon-search"></i></span>
+                <input class="layui-input" placeholder="请输入搜索名称" id="searchKey" />
+            </div>
+        </div>
+
+        <div class="picbox" id="imgwall">
+        </div>
+        <div class="layui-clear"></div>
+        <div id="page"></div>
+
+        <div class="'up-loading layui-hide" id="uppro">
+            <div class="layui-progress" lay-showpercent="true" lay-filter="uppro">
+                <div class="layui-progress-bar" lay-percent="0"></div>
+            </div>
+        </div>
+    </div>
+
+    <script id="imgs" type="text/html">
+        {{#  if(d.TotalPages<=0){ }}
+        <p class="nopic layui-hide">
+            <i class="layui-icon layui-icon-face-smile-fine"></i><span>没有内容...</span>
+        </p>
+        {{# }else{ }}
+        {{#  layui.each(d.Items, function(index, item){ }}
+        <ul class="">
+            <li class="active" onclick="selectImg(this);">
+                <i id="selectImg" data-type="{{ item.ImgBig }}" class="sels layui-hide"></i>
+                <div class="file-wrapper">
+                    <img src="{{item.ImgBig }}">
+                    <div><span class="file-type">{{ getFileExt(item.ImgBig) }}</span></div>
+                </div>
+                <div class="file-name"><a href="javascript:void(0);" target="_blank" title="{{ imgLastUrl(item.ImgBig) }}">{{ imgLastUrl(item.ImgBig) }}</a></div>
+                <ul class="picbox-view">
+                    <li>
+                        <a href="{{ item.ImgBig }}" target="_blank">
+                            <i class="layui-icon layui-icon-link"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="delimg" data-type="{{ item.ID }}">
+                            <i class="layui-icon layui-icon-delete"></i>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        {{# }); }}
+        {{# } }}
+    </script>
+    <input type="hidden" id="typeId" />
+</div>
+<div class="picframe-footer">
+    <button type="button" class="layui-btn layui-btn-primary btn-open-close" id="closeDig">取消</button>
+    <button type="button" class="layui-btn" id="saveSelect">确定</button>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+
+        var imgExt = new Array(".png", ".jpg", ".jpeg", ".bmp", ".gif");//图片文件的后缀名
+        var docExt = new Array(".doc", ".docx");//word文件的后缀名
+        var xlsExt = new Array(".xls", ".xlsx");//excel文件的后缀名
+        var cssExt = new Array(".css");//css文件的后缀名
+        var jsExt = new Array(".js");//js文件的后缀名
+        //获取文件名后缀名
+        String.prototype.extension = function () {
+            var ext = null;
+            var name = this.toLowerCase();
+            var i = name.lastIndexOf(".");
+            if (i > -1) {
+                var ext = name.substring(i);
+            }
+            return ext;
+        };
+        //判断Array中是否包含某个值
+        Array.prototype.contain = function (obj) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i] === obj)
+                    return true;
+            }
+            return false;
+        };
+        String.prototype.extMatch = function (extType) {
+            if (extType.contain(this.extension()))
+                return true;
+            else
+                return false;
+        };
+        //获得文件扩展名，不包含.
+        function getFileExt(m) {
+            var str = '';
+            var fext = m.substr(m.lastIndexOf(".")).toLowerCase().replace('.', '');
+            return '<i class="file-type-' + fext + ' file-preview"></i>';
+        }
+        //获得文件路径，后面的文件名称
+        function imgLastUrl(s) {
+            var index = s.lastIndexOf("\/");
+            return s.substring(index + 1, s.length);
+        };
+        //选择图片操作
+        function selectImg(that) {
+            var ielemt = $(that).find("i").first();
+            if (ielemt.hasClass('layui-hide')) {
+                $('.sels').addClass('layui-hide');
+                ielemt.removeClass('layui-hide');
+            } else {
+                ielemt.addClass('layui-hide');
+            }
+        }
+
+        layui.config({
+            base: '/js/modules/'
+        }).use(['laytpl', 'laypage', 'element', 'table', 'layer', 'tree', 'jquery', 'upload', 'api'],
+            function () {
+                var $ = layui.jquery,
+                    $$ = parent.layui.jquery,
+                    element = layui.element,
+                    upload = layui.upload,
+                    laytpl = layui.laytpl,
+                    tree = layui.tree,
+                    laypage = layui.laypage,
+                    api = layui.api,
+                    types = 0, page = 1, TotalItems = 0, typeId = '', isInit = false;
+
+                upload.render({
+                    elem: '#localup', //绑定元素
+                    multiple: true,
+                    headers: api.getToken(),
+                    size: 300,
+                    number: 5,
+                    progress: function (value) {//上传进度回调 value进度值
+                        element.progress('uppro', value + '%');
+                    },
+                    exts: 'jpg|png|gif|bmp|jpeg|zip|rar|7z|doc|docx|ppt|pptx|xls|xlsx|txt|mp3|mp4|flv',
+                    url: '/Sys/Img/UploadImg', //上传接口
+                    data: {
+                        typeId: function () { return $('#typeId').val() },
+                        types: function () { return types },
+                    },
+                    before: function () {
+                        $('#uppro').removeClass('layui-hide');
+                    },
+                    done: function (res) {
+                        if (res.statusCode === 200) {
+                            api.success(res.msg);
+                            active.initLocal();
+                        } else {
+                            api.error(res.msg);
+                        }
+                        $('#uppro').addClass('layui-hide');
+                    },
+                    error: function () {
+                        api.error('上传失败');
+                        $('#uppro').addClass('layui-hide');
+                    }
+                });
+
+                var active = {
+                    //加载右侧图片
+                    initLocal() {
+                        api.ajax('Sys/Img/GetList', 'POST', { page: page, limit: 20, key: $('#searchKey').val(), typeId: typeId, types: types }, function (res) {
+                            if (res.statusCode == 200) {
+                                TotalItems = res.data.TotalItems;
+                                var getTpl = imgs.innerHTML,
+                                    view = document.getElementById('imgwall');
+                                laytpl(getTpl).render(res.data, function (html) {
+                                    view.innerHTML = html;
+                                });
+                                $('.delimg').on('click', function (obj) {
+                                    var ids = $(this).data('type');
+                                    layer.confirm('确定要删除吗？', function (index) {
+                                        layer.close(index);
+                                        api.ajax('Sys/Img/Delete', 'POST', { ids: ids }, function (res) {
+                                            if (res.statusCode === 200) {
+                                                api.success(res.msg);
+                                                active.initLocal();
+                                            }
+                                            else {
+                                                api.error(res.msg);
+                                            }
+                                        });
+                                    });
+                                });
+
+                                if (!isInit) {
+                                    laypage.render({
+                                        elem: 'page', //注意，这里的 test1 是 ID，不用加 # 号
+                                        count: TotalItems, //数据总数，从服务端得到
+                                        limit: 20,
+                                        jump: function (obj, first) {
+                                            if (!first) {//首次不执行
+                                                page = obj.curr;
+                                                active.initLocal();
+                                            }
+                                        }
+                                    });
+                                    isInit = true;
+                                }
+                            }
+                        });
+                    },
+                    //加载左侧树形列表
+                    loadtree() {
+                        api.ajax('Sys/ImgType/GetTree', 'GET', {}, function (res) {
+                            tree.render({
+                                elem: '#tree',
+                                data: res,
+                                onlyIconControl: true,
+                                isJump: false, //是否允许点击节点时弹出新窗口跳转
+                                edit: ['add', 'update', 'del'],//操作节点的图标
+                                click: function (obj) {//点击左侧树形菜单
+                                    typeId = obj.data.id;//这里的id是树形控件的
+                                    $('#typeId').val(obj.data.id);
+                                    isInit = false;
+                                    active.initLocal();
+                                }
+                            });
+                        });
+                    }
+                };
+                //加载树形菜单
+                active.loadtree();
+                active.initLocal();
+
+                $('#addImgType').on('click', function () {//弹出添加分类的模态框
+                    api.Open('添加分类', '/Sys/ImgType/Modify?types=' + types, '620px', '370px', function () {
+                        active.loadtree();
+                    });
+                });
+
+                $('.layui-icon-search').on('click', function () {
+                    if (types == 0) {
+                        isInit = false;
+                        active.initLocal();
+                    }
+                });
+
+                $('#local').on('click', function () {
+                    $('#local').addClass('active');
+                    $('#yun').removeClass('active');
+                    types = 0;
+                    typeId = '';
+                    $('#typeId').val();
+                    isInit = false;
+                    active.initLocal();
+                });
+                $('#yun').on('click', function () {
+                    $('#yun').addClass('active');
+                    $('#local').removeClass('active');
+                    types = 1;
+                });
+
+                //关闭当前云媒体窗体
+                $('#closeDig').on('click', function () {
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index);
+                });
+                //点击确定，返回给父窗体的值
+                $('#saveSelect').on('click', function () {
+                    var index = parent.layer.getFrameIndex(window.name);
+                    $('.sels').each(function () {
+                        if (!$(this).hasClass('layui-hide')) {
+                      
+                            var control = api.getUrlParam('control');
+                            var type = api.getUrlParam('type');
+                            var frameid = api.getUrlParam('frameid');
+                            //非iframe 文本框选择文件
+                            var src = $(this).data('type');
+                            if (type === 'sign') {
+                                $$('#' + control).val(src);
+                            }
+                            //弹出表单选择文件
+                            if (type === 'form') {
+                                var formframes = $("#" + frameid)[0].contentWindow;
+                                formframes.oc.fileSave(src);
+                            }
+                            //编辑器选择文件
+                            if (type === 'edit') {
+                                var formframes = $$("#" + frameid)[0].contentWindow;
+                                formframes.active.setContent(src);
+                            }
+                            //多选文件
+                            if (type === 'many') {
+                                var formframes = $$("#" + frameid)[0].contentWindow;
+                                formframes.oc.setMany(this.active);
+                            }
+                            //iframe  选择图片
+                            if (type === 'iframe') {
+                                debugger;
+                                var frames = $$("#" + frameid)[0].contentWindow;
+                                frames.document.getElementById(control+"_Img").src = src;
+                                frames.document.getElementById(control).value = src;
+                            }
+                        }
+                    });
+                    parent.layer.close(index);
+                });
+            });
+    </script>
+}

@@ -1,0 +1,169 @@
+﻿@{
+    ViewData["Title"] = "广告模块";
+    var advLocations = ViewBag.AdvLocations as List<AdoAdvLocation>;
+}
+@model AdoAdv
+
+<div id="app">
+    <form class="layui-form form-cus" action="" lay-filter="forms">
+        <div class="layui-form-item">
+            <label class="layui-form-label">广告标题</label>
+            <div class="layui-input-block">
+                <input type="text" name="Title" value="@Model.Title"
+                       placeholder="请输入广告标题" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">广告位置</label>
+            <div class="layui-input-block">
+                <select name="AdvLocationId">
+                    <option value="">-请选择广告位置-</option>
+                    @foreach (var item in advLocations)
+                    {
+                        if (Model.AdvLocationId == item.ID)
+                        {
+                            <option selected="selected" value="@item.ID">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.ID">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">说明</label>
+            <div class="layui-input-block">
+                <input type="text" name="Descption" value="@Model.Descption"
+                       placeholder="请输入说明" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">联系微信</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="WeiXin" value="@Model.WeiXin"
+                           lay-verify="required" lay-verType="tips" autocomplete="off" placeholder="请输入联系微信" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">联系人</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="LinkName" value="@Model.LinkName"
+                           placeholder="请输入联系人" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">联系电话</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="Phoone" value="@Model.Phoone"
+                           lay-verify="required" lay-verType="tips" autocomplete="off" placeholder="请输入联系电话" class="layui-input">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">过期时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" lay-verify="date" id="ExpireTime" name="ExpireTime" value="@Model.ExpireTime">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">总共价格</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="Price" value="@Model.Price"
+                           placeholder="请输入总共价格" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">是否启用</label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="IsEnable" lay-skin="switch" lay-text="开启|禁用" value="true" @(Model.IsEnable ? "checked" : "")>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">广告图片</label>
+            <div class="layui-input-block">
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn layui-btn-warm dl-cloud" data-text="ImgUrl" data-type="iframe">上传图片</button>
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" style="width:180px; height:220px;" id="ImgUrl_Img" name="LinkPic_Img" src="@Model.ImgUrl">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <input type="text" name="Remark" value="@Model.Remark"
+                       lay-verify="required" lay-verType="tips" autocomplete="off" placeholder="请输入备注" class="layui-input">
+            </div>
+        </div>
+
+
+
+        <div class="layui-form-item layui-cur-submit">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="submit" id="submit">
+                    <i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-hide"></i>立即提交
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary btn-open-close">取消</button>
+            </div>
+        </div>
+        <input type="hidden" name="ID" id="ID" value="@Model.ID" />
+        <input type="hidden" name="Creator" id="Creator" value="@Model.Creator" />
+        <input type="hidden" name="CreateTime" id="CreateTime" value="@Model.CreateTime" />
+        <input type="hidden" name="ImgUrl" id="ImgUrl" value="@Model.ImgUrl" />
+    </form>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        layui.config({
+            base: '/js/modules/'
+        }).use(['layer', 'form', 'jquery', 'laydate', 'api'], function () {
+            var form = layui.form,
+                $ = layui.$,
+                laydate = layui.laydate,
+                api = layui.api,
+                index = parent.layer.getFrameIndex(window.name);
+
+            api.cloudFile();
+
+            laydate.render({
+                elem: '#ExpireTime',
+                theme: '#393D49'
+            });
+
+            //监听提交
+            form.on('submit(submit)', function (data) {
+
+                //$('#submit').attr('disabled', true).find('i').removeClass('layui-hide');
+                var url = "Ado/Adv/Add";
+                if ($("#ID").val()) {
+                    url = "Ado/Adv/Update";
+                }
+
+                api.ajax(url, 'POST', data.field, function (res) {
+                    //$('#submit').attr('disabled', false).find('i').addClass('layui-hide');
+                    if (res.statusCode === 200) {
+                        api.success(res.msg);
+                        //parent.layer.close(index);
+                    } else {
+                        api.error(res.msg);
+                    }
+                });
+                return false;
+            });
+            $(".btn-open-close").on('click', function () {
+                parent.layer.close(index);
+            });
+        });
+    </script>
+}

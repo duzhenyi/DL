@@ -1,0 +1,75 @@
+﻿@model List<SysCodeType>
+
+@{
+    ViewData["Title"] = "编辑字典栏目";
+    SysCodeTypeDto CodeType = ViewBag.SysCodeTypeDto as SysCodeTypeDto;
+}
+    <form class="layui-form form-cus" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">等级</label>
+            <div class="layui-input-block">
+                <select name="ParentID" lay-search="">
+                    <option value="">父级</option>
+                    @foreach (var item in Model.Where(m => string.IsNullOrEmpty(m.ParentId)))
+                    {
+                        if (CodeType.parent == item.ID)
+                        {
+                            <option value="@item.ID" selected="selected">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.ID">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">栏目名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" value="@CodeType.title" lay-verify="required" lay-verType="tips" autocomplete="off" placeholder="请输入名称" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-cur-submit">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="submit" id="submit"><i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-hide"></i>立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary btn-open-close">取消</button>
+            </div>
+        </div>
+        <input type="hidden" name="ID" id="ID" value="@CodeType.id" />
+        <input type="hidden" name="Sort" value="@CodeType.sort" />
+    </form>
+
+@section Scripts{
+    <script type="text/javascript">
+        layui.config({
+            base: '/js/modules/'
+        }).use(['layer', 'jquery', 'api', 'form'], function () {
+            var form = layui.form, $ = layui.$, api = layui.api;
+            var index = parent.layer.getFrameIndex(window.name);
+            //监听提交
+            form.on('submit(submit)', function (data) {
+                $('#submit').attr('disabled', true).find('i').removeClass('layui-hide');
+                var urls = "Sys/CodeType/Add";
+                if ($("#ID").val()) {
+                    urls = "Sys/CodeType/Update";
+                }
+                data.field.IsEnable = data.field.IsEnable === 'on' ? true : false;
+                api.ajax(urls, 'post', data.field, function (res) {
+                    $('#submit').attr('disabled', false).find('i').addClass('layui-hide');
+                    if (res.statusCode === 200) {
+                        api.success(res.msg);
+                        parent.layer.close(index);
+                    } else {
+                        api.error(res.msg);
+                    }
+                });
+                return false;
+            });
+            $(".btn-open-close").on('click', function () {
+                parent.layer.close(index);
+            });
+
+        });
+    </script>
+}

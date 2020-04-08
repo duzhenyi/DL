@@ -1,0 +1,10 @@
+﻿using DL.Domain.PublicModels;
+using System;
+
+namespace DL.Domain.Dto.AdminDto.{AreaName}Dto
+{
+    public class {ModelName}PageParm :PageParm
+    {
+         {Models}
+    }
+}

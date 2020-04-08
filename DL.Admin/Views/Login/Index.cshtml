@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "DLSchool.Admin";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="~/css/login.css" rel="stylesheet" />
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Bad+Script|Gruppo|Kumar+One+Outline|League+Script|Londrina+Outline|Monoton|Sriracha|Yellowtail&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789?+'>
+
+    <title>@Html.Raw(ViewBag.Title)</title>
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="login-wall">
+        <div class="login-left">
+            <p style="width:550px;text-align:left; color:aliceblue;"></p>
+            <!--这是一个左侧的图片，目前什么都没放-->
+            <div class="login-left-bg">
+
+            </div>
+        </div>
+        <div class="login-right">
+            <form id="forms" method="post" class="layui-form">
+                @Html.AntiForgeryToken()
+                <h1 style="color:azure;">
+                    <x-sign>
+                        USER LOGIN
+                    </x-sign>
+                </h1>
+                <div class="cell"><span class="icon-user"></span><input value="admins" type="text" name="loginname" id="loginname" lay-verify="required" lay-verType="tips" placeholder="登录账号" autocomplete="off"></div>
+                <div class="cell"><span class="icon-pwd"></span><input autocomplete="new-password" value="123456" type="password" name="password" id="password" lay-verify="required" lay-verType="tips" placeholder="登录密码" autocomplete="off"></div>
+                <div class="login-tip"><span></span></div>
+                <div class="login-btn">
+                    <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="loginsub">
+                        LOGIN
+                    </button>
+                    <button id="clear" type="button" class="layui-btn layui-btn-danger">RESET</button>
+                </div>
+                <input type="hidden" name="privateKey" value="@Html.Raw(ViewBag.RsaKey[0])" />
+            </form>
+        </div>
+        <div class="layui-clear"></div>
+    </div>
+    <script src="~/layui/layui.js"></script>
+    <script type="text/javascript" src="~/js/login/jsencrypt.js"></script>  
+    <script type = "text/javascript" src = "~/js/login/login.js" ></script>
+    <script type="text/javascript" src="~/js/login/canvas-nest.min.js"></script>
+</body>
+
+</html>

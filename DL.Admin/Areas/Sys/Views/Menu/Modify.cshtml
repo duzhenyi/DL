@@ -1,0 +1,252 @@
+﻿@model SysMenu
+@{
+    ViewData["Title"] = "菜单修改";
+}
+<link href="http://fonts.googleapis.com/css?family=Source+Code+Pro:300,400" />
+<style>
+    .select-tree {
+        position: absolute;
+        background-color: #fff;
+        padding: 5px 15px;
+        z-index: 1000;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+        border-radius: 4px;
+        opacity: 0;
+        height: 0;
+        display: none;
+    }
+
+        .select-tree.active {
+            display: block;
+            opacity: 1;
+            height: auto;
+            max-height: 300px;
+            overflow: auto;
+            transition: all .5s;
+        }
+
+    .layui-iconpicker {
+        max-width: 100%;
+    } 
+</style>
+
+<link rel="stylesheet" href="~/js/color/spectrum.css" />
+<form class="layui-form form-cus" action="" lay-filter="frmMenu">
+    <div class="layui-form-item">
+        <label class="layui-form-label">菜单类型</label>
+        <div class="layui-input-block" id="Type-Item">
+            <input type="radio" name="Type" value="1" title="模块">
+            <input type="radio" name="Type" value="2" title="菜单">
+            <input type="radio" name="Type" value="3" title="按钮">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属父级</label>
+        <div class="layui-input-block">
+            <input type="text" name="ParentName" id="ParentName" readonly="readonly" value="@Model.ParentName" placeholder="请选择所属父级" class="layui-input">
+            <div id="tree" class="layui-tree-cus select-tree"></div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="Name" value="@Model.Name" lay-verify="required" lay-verType="tips" autocomplete="off" placeholder="请输入名称" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">权限名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="EnCode" value="@Model.EnCode" lay-verify="required" lay-verType="tips" autocomplete="off" placeholder="用于权限控制操作" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item" id="Url-Item">
+        <label class="layui-form-label">地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="Url" value="@Model.Url" autocomplete="off" placeholder="请输入Url地址" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item" id="OpenType-Item">
+        <label class="layui-form-label">打开方式</label>
+        <div class="layui-input-block">
+            <select name="OpenType" id="OpenType">
+                <option value="1">弹窗</option>
+                <option value="2">新页面</option>
+                <option value="" selected="selected">请选择</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item" id="Icon-Item">
+        <label class="layui-form-label">选择图标</label>
+        <div class="layui-input-block">
+            <input type="text" name="Icon" id="iconPicker" lay-filter="iconPicker" value="@Model.Icon" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item" id="IconColor-Item">
+        <label class="layui-form-label">图标颜色</label>
+        <div class="layui-input-block">
+            <input type="text" name="IconColor" id="IconColor" readonly="readonly" value="@Model.IconColor" class="layui-input iconColor">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-inline">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-block">
+                <input type="text" name="Sort" value="@Model.Sort" lay-verify="required" lay-verType="tips" autocomplete="off" placeholder="请输入排序" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-input-inline" id="IsEnable-Item">
+            <label class="layui-form-label">是否可见</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="IsEnable" lay-skin="switch" lay-text="展示|隐藏" value="true" @(Model.IsEnable ? "checked" : "")>
+            </div>
+        </div>
+        <div class="layui-input-inline" id="IsDeskTop-Item">
+            <label class="layui-form-label">置顶桌面</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="IsDeskTop" lay-skin="switch" lay-text="置顶|不置顶" value="true" @(Model.IsDeskTop ? "checked" : "")>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+            <textarea name="Remark" class="layui-textarea" style="min-height: 60px;" placeholder="（非必填）可以描述字典的说明">@Model.Remark</textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-cur-submit">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="submit" id="submit"><i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-hide"></i>立即提交</button>
+            <button type="button" class="layui-btn layui-btn-primary btn-open-close">取消</button>
+        </div>
+    </div>
+    <input type="hidden" id="Type" value="@Model.Type" />
+    <input type="hidden" name="ID" id="ID" value="@Model.ID" />
+    <input type="hidden" name="ParentID" id="ParentID" value='@(Model.ParentId!=null?Model.ParentId:"0")' />
+    <input type="hidden" name="Icon" id="Icon" value="@Model.Icon" />
+    <input type="hidden" name="Creator" value="@Model.Creator" />
+    <input type="hidden" name="CreateTime" value="@Model.CreateTime" />
+</form>
+@section Scripts{
+    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="~/js/color/spectrum.js"></script>
+    <script type="text/javascript">
+
+        layui.config({
+            base: '/js/modules/'
+        }).extend({
+            iconPicker: 'iconPicker'
+        }).use(['layer', 'jquery', 'api', 'iconPicker', 'form', 'tree'], function () {
+
+            var form = layui.form,
+                $ = layui.$,
+                api = layui.api,
+                iconPicker = layui.iconPicker,
+                tree = layui.tree,
+                index = parent.layer.getFrameIndex(window.name);
+
+            iconPicker.render({
+                elem: '#iconPicker',
+                type: 'fontClass',
+                search: true,
+                page: false,
+                click: function (data) {
+                    $("#Icon").val(data.icon);
+                }
+            });
+
+            var active = {
+                loadtree() {
+                    api.ajax('Sys/Menu/GetTree', 'GET', {}, function (res) {
+                        tree.render({
+                            elem: '#tree',
+                            data: res,
+                            onlyIconControl: true,
+                            click: function (obj) {//点击左侧树形菜单
+                                $("#ParentID").val(obj.data.id);
+                                $("#ParentName").val(obj.data.title);
+                                $(".select-tree").removeClass('active');
+                            }
+                        });
+                    });
+                }
+            };
+
+            active.loadtree();
+            //图标颜色
+            colorSelect();
+            $('#IconColor').on('change', colorSelect);
+            function colorSelect() {
+                var color = $('#IconColor').val();
+                $('#IconColor').spectrum({
+                    color: color == "" ? "#000000" : color
+                });
+            }
+            form.val('frmMenu', {
+                "OpenType": $('#OpenType').val(),
+                "Type": $('#Type').val()
+            });
+            checkType();
+            $("#Type-Item").on('click', function (d) {
+                checkType();
+            });
+            function checkType() {
+                var type = $('input:radio[name="Type"]:checked').val();
+                var hide = "layui-hide",
+                    urlitem = $('#Url-Item'),
+                    iconitem = $('#Icon-Item'),
+                    iconColoritem = $('#IconColor-Item'),
+                    isDeskTopitem = $('#IsDeskTop-Item'),
+                    openTypeitem = $('#OpenType-Item');
+
+                if (type == 3) {//按钮
+                    urlitem.addClass(hide);
+                    iconitem.addClass(hide);
+                    iconColoritem.addClass(hide);
+                    isDeskTopitem.addClass(hide);
+                    openTypeitem.addClass(hide);
+                } else {//菜单
+                    urlitem.removeClass(hide);
+                    iconitem.removeClass(hide);
+                    iconColoritem.removeClass(hide);
+                    isDeskTopitem.removeClass(hide);
+                    openTypeitem.removeClass(hide);
+                }
+            }
+            //监听提交
+            form.on('submit(submit)', function (data) {
+                var type = $('input:radio[name="Type"]:checked').val();
+                if (type != 1 && data.field.ParentID == "") {//菜单跟按钮必须选择父级菜单
+                    api.error("请选择父级");
+                    return false;
+                }
+                $('#submit').attr('disabled', true).find('i').removeClass('layui-hide');
+                var url = "Sys/Menu/Add";
+                if ($("#ID").val()) {
+                    url = "Sys/Menu/Update";
+                }
+               
+                api.ajax(url, 'post', data.field, function (res) {
+                    $('#submit').attr('disabled', false).find('i').addClass('layui-hide');
+                    if (res.statusCode === 200) {
+                        api.success(res.msg);
+                        //parent.layer.close(index);
+                    } else {
+                        api.error(res.msg);
+                    }
+                });
+                return false;
+            });
+            $(".btn-open-close").on('click', function () {
+                parent.layer.close(index);
+            });
+
+            $("#ParentName").click(function () {
+                $(".select-tree").addClass('active');
+            });
+            $(".select-tree").mouseleave(function () {
+                $(".select-tree").removeClass('active');
+            });
+        });
+    </script>
+}

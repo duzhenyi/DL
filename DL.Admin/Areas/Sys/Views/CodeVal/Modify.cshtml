@@ -1,0 +1,81 @@
+﻿@model SysCode
+@{
+    ViewData["Title"] = "字典值修改";
+}
+    <form class="layui-form form-cus" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="Name" value="@Model.Name" lay-verify="required" lay-verType="tips" autocomplete="off" placeholder="请输入字典名称" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">阈值</label>
+            <div class="layui-input-block">
+                <input type="text" name="Val" value="@Model.Val" lay-verify="required" lay-verType="tips" autocomplete="off" placeholder="请输入阈值" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-block">
+                <input type="number" name="Sort" value="@Model.Sort" lay-verify="required" lay-verType="tips" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否有效</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="IsEnable" disabled="" lay-skin="switch" lay-text="启用|冻结" value="true" @(Model.IsEnable ? "checked" : "")>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea name="Remark" class="layui-textarea" style="min-height: 60px;" placeholder="（非必填）可以描述字典的说明">@Model.Remark</textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-cur-submit">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="submit" id="submit"><i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-hide"></i>立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary btn-open-close">取消</button>
+            </div>
+        </div>
+        <input type="hidden" name="ID" id="ID" value="@Model.ID" />
+        <input type="hidden" name="CodeTypeId" value="@Model.CodeTypeId" />
+        <input type="hidden" name="Creator" value="@Model.Creator" />
+        <input type="hidden" name="CreateTime" value="@Model.CreateTime" />
+    </form>
+@section Scripts{
+    <script type="text/javascript">
+        layui.config({
+            base: '/js/modules/'
+        }).use(['layer', 'jquery', 'api', 'form'], function () {
+            var form = layui.form, $ = layui.$, api = layui.api;
+            var index = parent.layer.getFrameIndex(window.name);
+            //监听提交
+            form.on('submit(submit)', function (data) {
+
+                $('#submit').attr('disabled', true).find('i').removeClass('layui-hide');
+
+                var urls = "Sys/CodeVal/Add";
+                if ($("#ID").val()) {
+                    urls = "Sys/CodeVal/Update";
+                }
+                api.ajax(urls, 'post', data.field, function (res) {
+                    $('#submit').attr('disabled', false).find('i').addClass('layui-hide');
+                    if (res.statusCode === 200) {
+                        api.success(res.msg);
+                        parent.layer.close(index);
+                    } else {
+                        api.error(res.msg);
+                    }
+                });
+                return false;
+            });
+            $(".btn-open-close").on('click', function () {
+                parent.layer.close(index);
+            });
+        });
+    </script>
+}

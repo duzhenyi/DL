@@ -1,0 +1,129 @@
+﻿@{
+    ViewData["Title"] = "$DescName$";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div id="container">
+        <div class="list-wall"> 
+            $Select$ 
+            <table class="layui-table" id="tablist" lay-filter="tabFilter"></table>
+        </div>
+          
+        <script type="text/html" id="editTool">
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i> 修改</a>
+        </script>
+
+        $Script$
+
+        <script type="text/html" id="toolBarId">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon layui-icon-add-circle"></i>添加</button>
+                <button class="layui-btn layui-btn-sm" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</button>
+            </div>
+        </script>
+
+    </div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        layui.config({
+            base: '/js/modules/'
+        }).use(['element', 'form', 'table', 'layer', 'jquery', 'api', 'laydate'],
+            function () {
+
+                var table = layui.table,
+                    layer = layui.layer,
+                    laydate = layui.laydate,
+                    $ = layui.jquery,
+                    api = layui.api;
+
+                    $LayerDate$
+                table.render({
+                    elem: '#tablist',
+                    id: 'tables',
+                    headers: api.getToken(),
+                    url: '/$AreaName$/$ControllerName$/GetPages',
+                    page: true,
+                    page: { limits: [10, 20, 50, 100], groups: 8 },
+                    toolbar: '#toolBarId', //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+                    defaultToolbar: ['filter', 'exports', 'print'],
+                    cols: [
+                        [
+                            { type: 'checkbox', fixed: 'left' },
+                            $Models$
+                            { width: 100, title: '操作', templet: '#editTool' }
+                        ]
+                    ]
+                });
+
+                var active = {
+                    //刷新右侧表格
+                    reload: function () {
+                        table.reload('tables', {
+                            page: { curr: 1 },
+                            where: {
+                                $Where$
+                            }
+                        });
+                    },
+                    $Search$
+                    //弹出添加页面
+                    add: function () {
+                        api.Open('添加', '/$AreaName$/$ControllerName$/Modify', '620px', '450px', function () {
+                            active.reload();
+                        });
+                    },
+                    //删除右侧表格的项
+                    del: function () {
+                        var checkStatus = table.checkStatus('tables'), data = checkStatus.data;
+                        if (data.length === 0) {
+                            api.error("请选择要删除的项目");
+                            return;
+                        }
+                        var ids = '';
+                        $.each(data, function (i, item) {
+                            ids += item.ID + ",";
+                        });
+                        if (ids == '') {
+                            api.error("请选择要删除的项目");
+                            return;
+                        }
+                        layer.confirm('确定要执行批量删除吗？', function (index) {
+                            layer.close(index);
+                            var loadindex = layer.load(1, {
+                                shade: [0.1, '#000']
+                            });
+                            api.ajax('$AreaName$/$ControllerName$/Delete/', 'post', { ids: ids }, function (res) {
+                                layer.close(loadindex);
+                                if (res.statusCode === 200) {
+                                    active.reload();
+                                    api.success(res.msg);
+                                } else {
+                                    api.error(res.msg);
+                                }
+                            });
+                        });
+
+                    }
+                };
+
+                //按钮点击事件
+                $('.list-search .layui-btn').on('click', function () {
+                    var type = $(this).data('type');
+                    active[type] ? active[type].call(this) : '';
+                });
+                 table.on('toolbar(tabFilter)', function (obj) {
+                    active[obj.event] ? active[obj.event].call(this) : '';
+                });
+                //监听工具条
+                table.on('tool(tabFilter)', function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'edit') {
+                        api.Open('编辑', '/$AreaName$/$ControllerName$/Modify/?id=' + data.ID, '620px', '450px', function () {
+                            active.reload();
+                        })
+                    }
+                });
+            });
+    </script>
+}

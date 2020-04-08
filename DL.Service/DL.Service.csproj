@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="AdoService\CmsDownloadService.cs" />
+    <Compile Remove="AdoService\CmsImageService.cs" />
+    <Compile Remove="AdoService\CmsImgtypeService.cs" />
+    <Compile Remove="AdoService\CmsTemplateService.cs" />
+    <Compile Remove="AdoService\DlAdvClassService.cs" />
+    <Compile Remove="AdoService\DlAdvListService.cs" />
+    <Compile Remove="AdoService\DlArticleService.cs" />
+    <Compile Remove="AdoService\DlColumnService.cs" />
+    <Compile Remove="AdoService\DlCommentService.cs" />
+    <Compile Remove="AdoService\DlIndustryService.cs" />
+    <Compile Remove="AdoService\DlMessageService.cs" />
+    <Compile Remove="AdoService\DlRecruitenlistService.cs" />
+    <Compile Remove="AdoService\DlRecruitService.cs" />
+    <Compile Remove="AdoService\DlTagsService.cs" />
+    <Compile Remove="AdoService\DlUserService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DL.Domain\DL.Domain.csproj" />
+    <ProjectReference Include="..\DL.IService\DL.IService.csproj" />
+    <ProjectReference Include="..\DL.Utils\DL.Utils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AdoService\" />
+  </ItemGroup>
+
+</Project>

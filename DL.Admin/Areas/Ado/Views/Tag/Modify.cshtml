@@ -1,0 +1,108 @@
+﻿@{
+    ViewData["Title"] = "标签编辑";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using DL.Domain.Models.AdoModels
+@model AdoTag
+
+<div id="app" >
+    <form class="layui-form form-cus" action="" lay-filter="forms">
+        <div class="layui-form-item">
+            <label class="layui-form-label">标签名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="TagName" value="@Model.TagName"
+                       placeholder="请输入标签名称" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属类型</label>
+            <div class="layui-input-block">
+                <select name="TagType" lay-verify="required">
+                    @foreach (TagEnum t in Enum.GetValues(typeof(TagEnum)))
+                    {
+                        if (Model.TagType == (int)t)
+                        {
+                            <option selected value="@((int)t)">@t.GetEnumDisplayName()</option>
+                        }
+                        else
+                        {
+                            <option value="@((int)t)">@t.GetEnumDisplayName()</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否最火</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="IsHot" lay-skin="switch" lay-text="开启|禁用" value="true" @(Model.IsHot ? "checked" : "")>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否启用</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="IsEnable" lay-skin="switch" lay-text="开启|禁用" value="true" @(Model.IsEnable ? "checked" : "")>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">标签介绍</label>
+            <div class="layui-input-block">
+                <textarea name="TooltipDesc" class="layui-textarea" style="min-height: 60px;" placeholder="请输入介绍">@Model.TooltipDesc</textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea name="Remark" class="layui-textarea" style="min-height: 60px;" placeholder="请输入备注">@Model.Remark</textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-cur-submit">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="submit" id="submit">
+                    <i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-hide"></i>立即提交
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary btn-open-close">取消</button>
+            </div>
+        </div>
+        <input type="hidden" name="ID" id="ID" value="@Model.ID" />
+        <input type="hidden" name="Creator" id="Creator" value="@Model.Creator" />
+        <input type="hidden" name="CreateTime" id="CreateTime" value="@Model.CreateTime" />
+    </form>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        layui.config({
+            base: '/js/modules/'
+        }).use(['layer', 'jquery', 'api', 'form'], function () {
+            var form = layui.form,
+                $ = layui.$,
+                api = layui.api,
+                index = parent.layer.getFrameIndex(window.name);
+
+            //监听提交
+            form.on('submit(submit)', function (data) {
+
+                $('#submit').attr('disabled', true).find('i').removeClass('layui-hide');
+                var url = "Ado/Tag/Add";
+                if ($("#ID").val()) {
+                    url = "Ado/Tag/Update";
+                }
+
+                api.ajax(url, 'POST', data.field, function (res) {
+                    $('#submit').attr('disabled', false).find('i').addClass('layui-hide');
+                    if (res.statusCode === 200) {
+                        parent.layer.close(index);
+                    } else {
+                        api.error(res.msg);
+                    }
+                });
+                return false;
+            });
+            $(".btn-open-close").on('click', function () {
+                parent.layer.close(index);
+            });
+        });
+    </script>
+}

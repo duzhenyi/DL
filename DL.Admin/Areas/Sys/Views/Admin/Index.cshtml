@@ -1,0 +1,212 @@
+﻿@{
+    ViewData["Title"] = "管理员管理";
+}
+
+<style>
+    .layui-col-220 .layui-nav-title {
+        line-height: 25px;
+        height: auto;
+        padding: 20px 0 20px 20px;
+        text-indent: 0px;
+        width: auto;
+    }
+
+    .layui-btn-group .layui-btn {
+        background: #e7eaef !important;
+        border-color: #e7eaef !important;
+        color: #333;
+    }
+
+        .layui-btn-group .layui-btn.active {
+            background-color: #409eff !important;
+            border-color: #409eff !important;
+            color: #fff;
+        }
+
+    .layui-icon-export,
+    .layui-icon-friends {
+        margin-right: 5px;
+        color: #aee4fa;
+    }
+
+    .role-item {
+        padding: 6px 0px 6px 50px;
+        cursor: pointer
+    }
+
+        .role-item.active {
+            background-color: #dbedf5;
+        }
+
+    .layui-colla-content {
+        padding: 0px;
+        border-color: transparent;
+    }
+
+    .layui-colla-title {
+        background-color: transparent
+    }
+
+    .layui-colla-item {
+        border-color: transparent;
+    }
+</style>
+<div id="container">
+    <div class="layui-col-220" id="app">
+        <div class="layui-nav-title">
+            <div class="layui-btn-group">
+                <button type="button" class="layui-btn active">组织架构</button>
+            </div>
+        </div>
+        <div class="role-tab">
+            <div id="tree" class="layui-tree-cus"></div>
+        </div>
+    </div>
+    <div class="right-col-body">
+        <div class="list-wall">
+            <div class="layui-form list-search">
+                <button type="button" class="layui-btn layui-btn-sm" data-type="add"><i class="layui-icon layui-icon-add-1"></i> 新增</button>
+                <button type="button" class="layui-btn layui-btn-sm" data-type="del"><i class="layui-icon layui-icon-delete"></i> 删除</button>
+            </div>
+            <table class="layui-hide" id="tablist" lay-filter="tool"></table>
+        </div>
+    </div>
+    <script type="text/html" id="isEnableSwitch">
+        <input type="checkbox" name="IsEnable" value="{{d.Id}}" lay-skin="switch" lay-text="正常|禁用" lay-filter="statusedit" {{ d.IsEnable?'checked':''}} disabled="">
+    </script>
+    <script type="text/html" id="tool">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-bianji"></i>修改</a>
+    </script>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        layui.config({
+            base: '/js/modules/'
+        }).use([ 'table', 'layer', 'jquery', 'tree', 'api'],
+            function () {
+                var table = layui.table,
+                    layer = layui.layer,
+                    $ = layui.jquery,
+                    tree = layui.tree,
+                    api = layui.api;
+
+                //右侧列表
+                table.render({
+                    elem: '#tablist',
+                    headers: api.getToken(),
+                    url: '/Sys/Admin/GetPages',
+                    page: true,
+                    id: 'tables',
+                    cols: [
+                        [
+                            { type: 'checkbox', fixed: 'left' },
+                            { field: 'Account', title: '登录账号', align: "left" },
+                            {
+                                field: 'HeadPic', title: '头像', align: "center", width: 120,  templet: function (d) {
+                                    if (d.HeadPic != "") {
+                                        return "<img src='/upload/images/headpic/" + d.HeadPic + "'/>";
+                                    }
+                                    return "";
+                                }
+                            },
+                            { field: 'RelName', title: '昵称/姓名', align: "left" },
+                            { field: 'OrganizeName', title: '所属部门', align: "left" },
+                            { field: 'RoleName', title: '所属角色', align: "left" },
+                            {
+                                field: 'Sex', title: '性别', templet: function (d) {
+                                    return d.Sex ? "<button class='layui-btn layui-btn-danger  layui-btn-radius layui-btn-xs'>男</button>" :
+                                        "<button class='layui-btn layui-btn-warm  layui-btn-radius layui-btn-xs'>女</button>";
+                                }
+                            },
+                            { field: 'Mobile', title: '手机', align: "left" },
+                            { field: 'Email', title: '邮箱', align: "left" },
+                            { field: 'LoginCount', title: '登录次数' },
+                            { field: 'LastLoginTime', title: '最后登录时间', align: "left" },
+                            { field: 'isEnable', title: '状态', templet: '#isEnableSwitch' },
+                            { field: 'CreateTime', title: '添加时间', align: "left" },
+                            { field: 'Remark', title: '备注', align: "left" },
+                            { width: 100, title: '操作', templet: '#tool' }
+                        ]
+                    ]
+                });
+
+                var organizeId='', active = {
+                    reload: function () {
+                        table.reload('tables',
+                            {
+                                page: {
+                                    curr: 1
+                                },
+                                where: {
+                                    organizeId: organizeId
+                                }
+                            });
+                    },
+                    //加载左侧树
+                    loadtree() {
+                        api.ajax('Sys/Organize/GetTree/', 'GET', {}, function (res) {
+                            tree.render({
+                                elem: '#tree',
+                                data: res,
+                                onlyIconControl: true,
+                                click: function (obj) {
+                                    organizeId = obj.data.id; 
+                                    active.reload();
+                                }
+                            });
+                        });
+                    }, 
+                    add: function () {
+                        api.Open('添加用户', '/Sys/Admin/AdminModify', '730px', '600px', function () {
+                            active.reload();
+                        });
+                    },
+                    del: function () {
+                        var checkStatus = table.checkStatus('tables')
+                            , data = checkStatus.data;
+                        if (data.length === 0) {
+                            api.error("请选择要删除的项目~");
+                            return;
+                        }
+                        var adminIds = '';
+                        $.each(data, function (i, item) {
+                            adminIds += item.ID + ",";
+                        });
+                        layer.confirm('确定要执行批量删除吗？', function (index) {
+                            layer.close(index);
+                            var loadindex = layer.load(1, {
+                                shade: [0.1, '#000']
+                            });
+                            api.ajax('Sys/Admin/Delete/', 'POST', { ids: adminIds }, function (res) {
+                                layer.close(loadindex);
+                                if (res.statusCode === 200) {
+                                    active.reload();
+                                    api.success(res.msg);
+                                } else {
+                                    api.error(res.msg);
+                                }
+                            });
+                        });
+
+                    }
+                };
+
+                active.loadtree();
+
+                $('.list-search .layui-btn').on('click', function () {
+                    var type = $(this).data('type');
+                    active[type] ? active[type].call(this) : '';
+                });
+
+                //监听工具条
+                table.on('tool(tool)', function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'edit') {
+                        api.Open('编辑用户', '/Sys/Admin/AdminModify/?id=' + data.ID,'730px', '600px', function () {
+                            active.reload();
+                        })
+                    }
+                });
+            });
+    </script>
+}

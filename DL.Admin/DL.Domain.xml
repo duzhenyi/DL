@@ -1,0 +1,3116 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DL.Domain</name>
+    </assembly>
+    <members>
+        <member name="T:DL.Domain.Dto.Cms.ArticleOptionParm">
+            <summary>
+            转移到回收站参数/移动或者复制
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.ArticleOptionParm.parm">
+            <summary>
+            文章ID集合
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.ArticleOptionParm.type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.ArticleOptionParm.columnID">
+            <summary>
+            移动或复制的栏目
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Dto.Cms.ColumnTree">
+            <summary>
+            栏目树结构
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Dto.Cms.AdoCommentDto">
+            <summary>
+            评论显示
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.AdoCommentDto.Summary">
+            <summary>
+            评论内容
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.AdoCommentDto.CreateTime">
+            <summary>
+            添加时间
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.AdoCommentDto.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.AdoCommentDto.HeadImg">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.AdoCommentDto.StartCount">
+            <summary>
+            点赞量
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.IndustryTree.open">
+            <summary>
+            不被序列化
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.MessageDeleteDto.parm">
+            <summary>
+            唯一编号
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.MessageDeleteDto.type">
+            <summary>
+            操作类型，单个删除，还是全部删除
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.MessageReadDto.parm">
+            <summary>
+            唯一编号
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.MessageReadDto.type">
+            <summary>
+            操作类型，单个删除，还是全部删除
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Dto.Cms.MyAdoRecruitenlistDto">
+            <summary>
+            我的报名信息
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.MyAdoRecruitenlistDto.ID">
+            <summary>
+            Desc:
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.MyAdoRecruitenlistDto.Title">
+            <summary>
+            招聘信息标题
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.MyAdoRecruitenlistDto.RecruitID">
+            <summary>
+            Desc:招聘信息ID
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.MyAdoRecruitenlistDto.UserID">
+            <summary>
+            Desc:用户ID
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.MyAdoRecruitenlistDto.Name">
+            <summary>
+            Desc:姓名
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.MyAdoRecruitenlistDto.Tel">
+            <summary>
+            Desc:联系电话
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.MyAdoRecruitenlistDto.CreateTime">
+            <summary>
+            Desc:创建时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.QueryJobParams.key">
+            <summary>
+            关键字搜索
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.QueryJobParams.workArea">
+            <summary>
+            工作区域
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.QueryJobParams.industry">
+            <summary>
+            所属行业
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.QueryJobParams.workType">
+            <summary>
+            工作类型
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.QueryJobParams.settlementAmount">
+            <summary>
+            结算类型
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.QueryJobParams.workMoney">
+            <summary>
+            酬劳
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.QueryJobParams.comprehensive">
+            <summary>
+            综合查找 0综合排序 1今日最新 2昨日发布 3本周发布 4站长推荐
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.QueryJobParams.pageIndex">
+            <summary>
+            当前页码
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Cms.QueryJobParams.limit">
+            <summary>
+            每页条数
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Dto.Sys.SysAdminMenuDto">
+            <summary>
+            管理员登录成功返回的信息
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysAdminMenuDto.admin">
+            <summary>
+            登录后的用户信息
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysAdminMenuDto.menu">
+            <summary>
+            当前登录用户的菜单权限
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Dto.Sys.SysAdminLogin">
+            <summary>
+            后台管理登录
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysAdminLogin.loginname">
+            <summary>
+            登录账号
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysAdminLogin.password">
+            <summary>
+            登录密码
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Dto.Sys.SysAdminLoginConfig">
+            <summary>
+            用户登录次数和过期时间配置
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysAdminLoginConfig.Count">
+            <summary>
+            登录次数
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysAdminLoginConfig.DelayMinute">
+            <summary>
+            过期时间-分钟
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Dto.Sys.SysCodeDto">
+            <summary>
+            角色授权显示权限值
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Dto.Sys.SysMenuAuthorization">
+            <summary>
+            权限管理，授权菜单参数
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysMenuAuthorization.list">
+            <summary>
+            菜单列表
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysMenuAuthorization.roleID">
+            <summary>
+            授权角色
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Dto.Sys.SysMenuDto">
+            <summary>
+            管理员登录，获得菜单权限列表
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysMenuDto.ID">
+            <summary>
+            Desc:唯一标识ID
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysMenuDto.parentID">
+            <summary>
+            Desc:菜单父级ID
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysMenuDto.parentName">
+            <summary>
+            父级名称
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysMenuDto.name">
+            <summary>
+            Desc:菜单名称
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysMenuDto.nameCode">
+            <summary>
+            Desc:菜单名称标识
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysMenuDto.parentIDList">
+            <summary>
+            Desc:所属父级的集合
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysMenuDto.layer">
+            <summary>
+            Desc:菜单深度
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysMenuDto.urls">
+            <summary>
+            Desc:菜单Url
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysMenuDto.icon">
+            <summary>
+            Desc:菜单图标Class
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysMenuDto.iconColor">
+            <summary>
+            菜单图标颜色
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysMenuDto.isDeskTop">
+            <summary>
+            是否置顶桌面
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysMenuDto.btnJson">
+            <summary>
+            Desc:菜单图标Class
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysMenuDto.sort">
+            <summary>
+            Desc:菜单排序
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysMenuDto.isChecked">
+            <summary>
+            Desc:权限操作是否选中
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysMenuDto.btnFun">
+            <summary>
+            当前菜单的功能列表
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Dto.Sys.SysMenuTree">
+            <summary>
+            菜单生成树
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Dto.Sys.SysOrganizeDto">
+            <summary>
+            组织机构DTO
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Dto.Sys.SysPermissionsParm">
+            <summary>
+            角色授权，入参
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysPermissionsParm.role">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysPermissionsParm.menu">
+            <summary>
+            菜单
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysPermissionsParm.btnfun">
+            <summary>
+            按钮的值
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.SysPermissionsParm.status">
+            <summary>
+            状态 1=授权  0=取消
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.ToDeskTopParam.ID">
+            <summary>
+            菜单ID
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Dto.Sys.ToDeskTopParam.isDeskTop">
+            <summary>
+            是否置顶桌面
+            </summary>
+        </member>
+        <member name="T:DL.Domain.ApiResult`1">
+            <summary>
+            API 返回JSON字符串
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:DL.Domain.ApiResult`1.success">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+        <member name="P:DL.Domain.ApiResult`1.msg">
+            <summary>
+            信息
+            </summary>
+        </member>
+        <member name="P:DL.Domain.ApiResult`1.statusCode">
+            <summary>
+            状态码
+            </summary>
+        </member>
+        <member name="P:DL.Domain.ApiResult`1.data">
+            <summary>
+            数据集
+            </summary>
+        </member>
+        <member name="F:DL.Domain.Extensions.CacheKeyModel.DLJOBTYPE_KEY">
+            <summary>
+            所有分类信息KEY
+            </summary>
+        </member>
+        <member name="F:DL.Domain.Extensions.CacheKeyModel.DLWORKAREATYPE_KEY">
+            <summary>
+            所有工作区域KEY
+            </summary>
+        </member>
+        <member name="F:DL.Domain.Extensions.CacheKeyModel.DLADVSLIDE_KEY">
+            <summary>
+            幻灯片广告KEY
+            </summary>
+        </member>
+        <member name="F:DL.Domain.Extensions.CacheKeyModel.DLSETTLEMENTAMOUNT_KEY">
+            <summary>
+            结算信息KEY
+            </summary>
+        </member>
+        <member name="F:DL.Domain.Extensions.CacheKeyModel.DLMONEY_KEY">
+            <summary>
+            薪酬金额KEY
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Page`1.CurrentPage">
+            <summary>
+            当前页索引
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Page`1.TotalPages">
+            <summary>
+            总页数
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Page`1.TotalItems">
+            <summary>
+            总记录数
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Page`1.ItemsPerPage">
+            <summary>
+            每页的记录数
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Page`1.Items">
+            <summary>
+            数据集
+            </summary>
+        </member>
+        <member name="T:DL.Domain.ParmSort">
+            <summary>
+            自定义排序
+            </summary>
+        </member>
+        <member name="T:DL.Domain.ParmString">
+            <summary>
+            提供字符串FromBody的解析
+            </summary>
+        </member>
+        <member name="T:DL.Domain.ParmInt">
+            <summary>
+            提供字符串FromBody的解析
+            </summary>
+        </member>
+        <member name="T:DL.Domain.PageParm">
+            <summary>
+            分页参数
+            </summary>
+        </member>
+        <member name="P:DL.Domain.PageParm.page">
+            <summary>
+            当前页
+            </summary>
+        </member>
+        <member name="P:DL.Domain.PageParm.limit">
+            <summary>
+            每页总条数
+            </summary>
+        </member>
+        <member name="P:DL.Domain.PageParm.id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:DL.Domain.PageParm.ID">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:DL.Domain.PageParm.key">
+            <summary>
+            搜索关键字
+            </summary>
+        </member>
+        <member name="P:DL.Domain.PageParm.types">
+            <summary>
+            类型条件
+            </summary>
+        </member>
+        <member name="P:DL.Domain.PageParm.audit">
+            <summary>
+            审核状态
+            </summary>
+        </member>
+        <member name="P:DL.Domain.PageParm.time">
+            <summary>
+            搜索日期，可能是2个日期，通过-分隔
+            </summary>
+        </member>
+        <member name="P:DL.Domain.PageParm.orderType">
+            <summary>
+            排序方式，可根据数字来判断，
+            </summary>
+        </member>
+        <member name="P:DL.Domain.PageParm.field">
+            <summary>
+            排序的字段
+            </summary>
+        </member>
+        <member name="P:DL.Domain.PageParm.order">
+            <summary>
+            排序的类型 asc  desc
+            </summary>
+        </member>
+        <member name="P:DL.Domain.PageParm.where">
+            <summary>
+            动态条件
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Models.Cms.SysColumn">
+            <summary>
+            网站栏目管理
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.ID">
+            <summary>
+            Desc:自动递增
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.Number">
+            <summary>
+            Desc:栏目编号
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.Title">
+            <summary>
+            Desc:栏目标题
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.EnTitle">
+            <summary>
+            Desc:英文栏位名称
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.Color">
+            <summary>
+            图标颜色
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.Icon">
+            <summary>
+            图标
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.SubTitle">
+            <summary>
+            Desc:栏位副标题
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.ParentId">
+            <summary>
+            Desc:父栏目
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.ClassList">
+            <summary>
+            Desc:栏位集合
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.ClassLayer">
+            <summary>
+            Desc:栏位等级
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.Sort">
+            <summary>
+            Desc:排序
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.TypeID">
+            <summary>
+            Desc:栏目类型
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.Attr">
+            <summary>
+            Desc:栏位属性
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.TempId">
+            <summary>
+            Desc:模板ID
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.TempName">
+            <summary>
+            Desc:模板名称
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.TempUrl">
+            <summary>
+            Desc:模板地址
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.ImgUrl">
+            <summary>
+            Desc:栏位图片
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.LinkUrl">
+            <summary>
+            Desc:外部链接地址
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.IsWapShow">
+            <summary>
+            Desc:是否手机端显示
+            Default:b'0'
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.KeyWord">
+            <summary>
+            Desc:关键词
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.Summary">
+            <summary>
+            Desc:描述
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.Content">
+            <summary>
+            Desc:内容
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysColumn.UpdateDate">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Models.Cms.CmsDownload">
+            <summary>
+             下载管理表
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.Id">
+            <summary>
+            Desc:
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.ColumnId">
+            <summary>
+            Desc:下载所属类型
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.Title">
+            <summary>
+            Desc:下载标题
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.SubTitle">
+            <summary>
+            Desc:下载副标题
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.FileUrl">
+            <summary>
+            Desc:文件地址
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.FileType">
+            <summary>
+            Desc:文件类型
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.FileSize">
+            <summary>
+            Desc:文件大小
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.DownSum">
+            <summary>
+            Desc:下载数量
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.Hits">
+            <summary>
+            Desc:访问数
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.Sort">
+            <summary>
+            Desc:权重
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.IsSystem">
+            <summary>
+            Desc:适用系统
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.IsCharge">
+            <summary>
+            Desc:软件类型
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.ImgUrl">
+            <summary>
+            Desc:图片地址
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.ThumImg">
+            <summary>
+            Desc:缩略图地址
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.IsTop">
+            <summary>
+            Desc:是否置顶
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.IsComment">
+            <summary>
+            Desc:是否评论
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.Audit">
+            <summary>
+            Desc:状态
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.IsLink">
+            <summary>
+            Desc:是否有外链
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.LinkUrl">
+            <summary>
+            Desc:外链地址
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.Tag">
+            <summary>
+            Desc:标签
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.Summary">
+            <summary>
+            Desc:简介
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.Content">
+            <summary>
+            Desc:详细描述
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.EditDate">
+            <summary>
+            Desc:修改时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsDownload.CreateTime">
+            <summary>
+            Desc:添加时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="T:DL.Domain.Models.Cms.CmsImage">
+            <summary>
+             图片表
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsImage.ID">
+            <summary>
+            Desc:
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsImage.TheID">
+            <summary>
+            Desc:所属栏目ID
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsImage.Types">
+            <summary>
+            Desc:图片类型，一个栏目可有多个图片类型
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsImage.Title">
+            <summary>
+            Desc:图片名称
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsImage.ImgBig">
+            <summary>
+            Desc:图片原图
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsImage.ImgSmall">
+            <summary>
+            Desc:图片缩略图
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsImage.ImgType">
+            <summary>
+            Desc:文件类型
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsImage.ImgSize">
+            <summary>
+            Desc:文件大小
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsImage.IsCover">
+            <summary>
+            Desc:是否为封面
+            Default:b'0'
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsImage.Sort">
+            <summary>
+            Desc:排序字段
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.CmsImage.CreateTime">
+            <summary>
+            Desc:上传时间
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="T:DL.Domain.Models.Cms.SysImgType">
+            <summary>
+            图片列表分类
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysImgType.ID">
+            <summary>
+            Desc:唯一ID
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysImgType.ParentId">
+            <summary>
+            Desc:所属父级
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysImgType.Type">
+            <summary>
+            Desc:图片类型分类 0=本地 1=云端
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysImgType.Level">
+            <summary>
+            Desc:级别 
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysImgType.Name">
+            <summary>
+            Desc:中文名称
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysImgType.EnName">
+            <summary>
+            Desc:英文名称
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysImgType.CreateTime">
+            <summary>
+            Desc:添加时间，作为排序使用
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="T:DL.Domain.Models.Cms.AdoTemplate">
+            <summary>
+            模板表
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoTemplate.Id">
+            <summary>
+            Desc:自动增长
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoTemplate.Title">
+            <summary>
+            Desc:模板名称
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoTemplate.Url">
+            <summary>
+            Desc:模板地址
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoTemplate.Status">
+            <summary>
+            Desc:状态是否启用
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoTemplate.Sort">
+            <summary>
+            Desc:排序
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoTemplate.CreateTime">
+            <summary>
+            Desc:添加时间
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Models.Cms.AdoAdvColumn">
+            <summary>
+            广告栏目管理
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdvColumn.ID">
+            <summary>
+            Desc:-
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdvColumn.ParentId">
+            <summary>
+            Desc:父ID
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdvColumn.Title">
+            <summary>
+            Desc:栏位名称
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdvColumn.Flag">
+            <summary>
+            Desc:栏位类型
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdvColumn.Width">
+            <summary>
+            Desc:宽度
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdvColumn.Height">
+            <summary>
+            Desc:高度
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdvColumn.Summary">
+            <summary>
+            Desc:说明
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdvColumn.Status">
+            <summary>
+            Desc:状态
+            Default:b'1'
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdvColumn.CreateTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Models.Cms.AdoAdv">
+            <summary>
+            广告位管理
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdv.ID">
+            <summary>
+            Desc:-
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdv.ClassID">
+            <summary>
+            Desc:栏目ID
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdv.Title">
+            <summary>
+            Desc:广告位名称
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdv.AdvType">
+            <summary>
+            Desc:广告位类型
+            image=0 video=1
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdv.Status">
+            <summary>
+            Desc:是否启用
+            Default:b'1'
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdv.ImgUrl">
+            <summary>
+            Desc:图片地址
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdv.LinkUrl">
+            <summary>
+            Desc:链接地址
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdv.LinkSummary">
+            <summary>
+            Desc:链接描述
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdv.Target">
+            <summary>
+            Desc:打开窗口类型
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdv.AdvCode">
+            <summary>
+            Desc:广告位说明
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdv.IsTimeLimit">
+            <summary>
+            Desc:是否启用时间显示
+            Default:b'0'
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdv.BeginTime">
+            <summary>
+            Desc:开始时间
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdv.EndTime">
+            <summary>
+            Desc:结束时间
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdv.Sort">
+            <summary>
+            Desc:排序
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdv.Hits">
+            <summary>
+            Desc:点击量
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoAdv.UpdateDate">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Models.Cms.AdoArticle">
+            <summary>
+            文章表
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.ID">
+            <summary>
+            Desc:-
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.ColumnID">
+            <summary>
+            Desc:栏目ID
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.Types">
+            <summary>
+            Desc:0=新闻 1=多图
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.Title">
+            <summary>
+            Desc:文章标题
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.TitleColor">
+            <summary>
+            Desc:文章标题颜色
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.SubTitle">
+            <summary>
+            Desc:文章副标题
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.Author">
+            <summary>
+            Desc:作者
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.Source">
+            <summary>
+            Desc:来源
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.IsLink">
+            <summary>
+            Desc:是否外链
+            Default:b'0'
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.LinkUrl">
+            <summary>
+            Desc:外部链接地址
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.Tag">
+            <summary>
+            Desc:文章标签
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.Sort">
+            <summary>
+            Desc:权重
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.ImgUrl">
+            <summary>
+            Desc:文章宣传图
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.ThumImg">
+            <summary>
+            Desc:文章缩略图
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.VideoUrl">
+            <summary>
+            Desc:视频链接地址
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.IsTop">
+            <summary>
+            Desc:是否置顶
+            Default:b'0'
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.IsHot">
+            <summary>
+            Desc:是否热点
+            Default:b'0'
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.IsScroll">
+            <summary>
+            Desc:是否滚动
+            Default:b'0'
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.IsSlide">
+            <summary>
+            Desc:是否幻灯
+            Default:b'0'
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.IsComment">
+            <summary>
+            Desc:是否允许评论
+            Default:b'0'
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.IsWap">
+            <summary>
+            Desc:是否手机站显示
+            Default:b'0'
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.IsRecyc">
+            <summary>
+            Desc:是否在回收站
+            Default:b'0'
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.Audit">
+            <summary>
+            Desc:审核状态
+            Default:b'1'
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.KeyWord">
+            <summary>
+            SEO关键字
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.Summary">
+            <summary>
+            文章摘要
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.Content">
+            <summary>
+            文章内容
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.Hits">
+            <summary>
+            Desc:点击量
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.DayHits">
+            <summary>
+            Desc:当日点击量
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.WeedHits">
+            <summary>
+            Desc:星期点击量
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.MonthHits">
+            <summary>
+            Desc:月点击量
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.LastHitTime">
+            <summary>
+            Desc:最后点击时间
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.CreateTime">
+            <summary>
+            Desc:编辑时间
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.CreateTime">
+            <summary>
+            Desc:添加时间
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoArticle.DelTime">
+            <summary>
+            Desc:删除到回收站时间
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Models.Cms.AdoComment">
+            <summary>
+             评论表
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoComment.ID">
+            <summary>
+            Desc:唯一ID
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoComment.ColumnID">
+            <summary>
+            Desc:归属栏目ID
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoComment.UserID">
+            <summary>
+            Desc:评论人ID
+            Default:0
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoComment.Summary">
+            <summary>
+            Desc:评论内容
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoComment.CreateTime">
+            <summary>
+            Desc:评论时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoComment.Option">
+            <summary>
+            Desc:评论类型，如=1兼职   2=文章  3=其他
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoComment.StartCount">
+            <summary>
+            Desc:点赞量
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoComment.RepUserId">
+            <summary>
+            Desc:回复人ID
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoComment.RepUserName">
+            <summary>
+            Desc:回复人昵称
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoComment.RepDate">
+            <summary>
+            Desc:回复时间
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoComment.Audit">
+            <summary>
+            Desc:是否审核通过
+            Default:b'0'
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="T:DL.Domain.Models.Cms.AdoClassType">
+            <summary>
+            分类信息
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoClassType.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoClassType.Val">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoClassType.IndustryIcon">
+            <summary>
+            图标
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoClassType.IndustryColor">
+            <summary>
+            背景颜色
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoClassType.ParentId">
+            <summary>
+            父级ID
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoClassType.ParentIdList">
+            <summary>
+            下级ID列表
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoClassType.Layer">
+            <summary>
+            当前层次
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoClassType.IndustryType">
+            <summary>
+            所属类型 1 行业分类 2 工作区域
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoClassType.IsTop">
+            <summary>
+            是否置顶
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoClassType.CreateTime">
+            <summary>
+            添加日期
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Models.Cms.DlLink">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.DlLink.ID">
+            <summary>
+            Desc:
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.DlLink.Name">
+            <summary>
+            Desc:友情链接名称
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.DlLink.ImgUrl">
+            <summary>
+            Desc:图标地址
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.DlLink.LinkUrl">
+            <summary>
+            Desc:链接地址
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.DlLink.IsTimeLimit">
+            <summary>
+            Desc:是否启用时间显示
+            Default:b'0'
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.DlLink.BeginTime">
+            <summary>
+            Desc:开始时间
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.DlLink.EndTime">
+            <summary>
+            Desc:结束时间
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.DlLink.Sort">
+            <summary>
+            Desc:排序
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.DlLink.Hits">
+            <summary>
+            Desc:点击量
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.DlLink.CreateTime">
+            <summary>
+            Desc:更新时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.DlLink.Summary">
+            <summary>
+            Desc:广告位说明
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="T:DL.Domain.Models.Cms.AdoMessage">
+            <summary>
+             留言、投诉管理
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoMessage.ID">
+            <summary>
+            Desc:自动标识
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoMessage.IsSys">
+            <summary>
+            是否是系统消息
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoMessage.ColumnID">
+            <summary>
+            Desc:栏目ID
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoMessage.Types">
+            <summary>
+            Desc:类型
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoMessage.Title">
+            <summary>
+            Desc:标题
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoMessage.Mobile">
+            <summary>
+            Desc:电话号码
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoMessage.Email">
+            <summary>
+            Desc:联系邮箱
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoMessage.QQ">
+            <summary>
+            Desc:QQ
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoMessage.Status">
+            <summary>
+            Desc:是否查看
+            Default:b'0'
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoMessage.Summary">
+            <summary>
+            Desc:描述
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoMessage.Content">
+            <summary>
+            Desc:内容
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoMessage.UserID">
+            <summary>
+            Desc:用户ID
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoMessage.ParentId">
+            <summary>
+            Desc:父ID
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoMessage.CreateTime">
+            <summary>
+            Desc:添加时间
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="T:DL.Domain.Models.Cms.AdoRecruit">
+            <summary>
+            招聘信息
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.ID">
+            <summary>
+            Desc:
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.UserID">
+            <summary>
+            Desc:用户ID
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.Title">
+            <summary>
+            Desc:兼职标题
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.Business">
+            <summary>
+            商家名称
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.Industry">
+            <summary>
+            所属行业
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.WorkType">
+            <summary>
+            Desc:工作类型（'全职', '临时兼职', '短期兼职', '周末兼职','长期兼职'）
+            Default: 
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.SettlementAmount">
+            <summary>
+            工资结算方式
+            '小时结算', '日结算', '周结算', '月结算', '完成量结算', '完工结算'
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.Sex">
+            <summary>
+            性别要求 不限 男 女
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.Education">
+            <summary>
+            学历要求
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.Money">
+            <summary>
+            岗位薪酬
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.WorkCount">
+            <summary>
+            招聘人数
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.WorkDeposit">
+            <summary>
+            工作押金
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.LinkName">
+            <summary>
+            联系人
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.LinkTel">
+            <summary>
+            Desc:联系电话
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.WorkTime">
+            <summary>
+            Desc:工作时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.WorkArea">
+            <summary>
+            工作区域
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.Address">
+            <summary>
+            Desc:详细地址
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.Img">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.JobResponsibilities">
+            <summary>
+            岗位职责
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.JobRequirements">
+            <summary>
+            岗位要求
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.IsTimeLimit">
+            <summary>
+            Desc:是否启用时间显示
+            Default:b'0'
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.BeginTime">
+            <summary>
+            Desc:开始时间
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.EndTime">
+            <summary>
+            Desc:结束时间
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.IsTop">
+            <summary>
+            Desc:是否置顶
+            Default:b'0'
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.IsHot">
+            <summary>
+            Desc:是否热点
+            Default:b'0'
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.IsScroll">
+            <summary>
+            Desc:是否滚动
+            Default:b'0'
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.IsSlide">
+            <summary>
+            Desc:是否幻灯
+            Default:b'0'
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.IsComment">
+            <summary>
+            Desc:是否允许评论
+            Default:b'0'
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.Tag">
+            <summary>
+            标签
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.SysAdminId">
+            <summary>
+            Desc:审核人员
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.AuditTime">
+            <summary>
+            Desc:审核时间
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.AuditDesc">
+            <summary>
+            Desc:审核说明
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.Audit">
+            <summary>
+            Desc:审核状态 0 等待审核 1 审核成功 2 审核失败
+            Default:b'1'
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.Hits">
+            <summary>
+            Desc:点击量
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.DayHits">
+            <summary>
+            Desc:当日点击量
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.WeedHits">
+            <summary>
+            Desc:星期点击量
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.MonthHits">
+            <summary>
+            Desc:月点击量
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruit.CreateTime">
+            <summary>
+            Desc:创建时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="T:DL.Domain.Models.Cms.AdoRecruitenlist">
+            <summary>
+            报名信息
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruitenlist.ID">
+            <summary>
+            Desc:
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruitenlist.RecruitID">
+            <summary>
+            Desc:招聘信息ID
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruitenlist.UserID">
+            <summary>
+            Desc:用户ID
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruitenlist.Name">
+            <summary>
+            Desc:姓名
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruitenlist.Tel">
+            <summary>
+            Desc:联系电话
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoRecruitenlist.CreateTime">
+            <summary>
+            Desc:创建时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="T:DL.Domain.Models.Cms.SysSite">
+            <summary>
+            站点表
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.ID">
+            <summary>
+            Desc:-
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.SysId">
+            <summary>
+            Desc:系统ID
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.SiteName">
+            <summary>
+            Desc:网站名称
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.SiteUrl">
+            <summary>
+            Desc:网站域名
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.SiteLogo">
+            <summary>
+            Desc:网站Logo
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.Summary">
+            <summary>
+            Desc:网站描述
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.SiteTel">
+            <summary>
+            Desc:公司电话
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.SiteFax">
+            <summary>
+            Desc:公司传真
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.SiteEmail">
+            <summary>
+            Desc:公司人事邮箱
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.QQ">
+            <summary>
+            Desc:公司客服QQ
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.WeiXin">
+            <summary>
+            Desc:微信公众号图片
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.WeiBo">
+            <summary>
+            Desc:微博链接地址或者二维码
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.SiteAddress">
+            <summary>
+            Desc:公司地址
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.SiteCode">
+            <summary>
+            Desc:网站备案号其它等信息
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.SeoTitle">
+            <summary>
+            Desc:网站SEO标题
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.SeoKey">
+            <summary>
+            Desc:网站SEO关键字
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.SeoDescribe">
+            <summary>
+            Desc:网站SEO描述
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.SiteCopyright">
+            <summary>
+            Desc:网站版权等信息
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.Status">
+            <summary>
+            Desc:网站开启关闭状态
+            Default:b'1'
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.CloseInfo">
+            <summary>
+            Desc:如果状态关闭，请输入关闭网站原因
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.IsDel">
+            <summary>
+            是否删除
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.SysSite.CreateTime">
+            <summary>
+            创建站点时间
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Models.Cms.AdoTags">
+            <summary>
+            标签表
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoTags.ID">
+            <summary>
+            Desc:-
+            Default:-
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoTags.FirstLetter">
+            <summary>
+            Desc:首字母
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoTags.Name">
+            <summary>
+            Desc:标签名称
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoTags.Status">
+            <summary>
+            Desc:是否启用
+            Default:b'1'
+            Nullable:False
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoTags.Links">
+            <summary>
+            Desc:标签链接地址
+            Default:-
+            Nullable:True
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoTags.TagsHits">
+            <summary>
+            Desc:标签点击量
+            Default:0
+            Nullable:False
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Models.Cms.AdoUser">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoUser.ID">
+            <summary>
+            Desc:
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoUser.QQ">
+            <summary>
+            Desc:QQ账号
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoUser.WX">
+            <summary>
+            Desc:微信账号
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoUser.LoginAccount">
+            <summary>
+            Desc:登录账户
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoUser.Pwd">
+            <summary>
+            Desc:登录密码
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoUser.NickName">
+            <summary>
+            Desc:昵称
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoUser.HeadPic">
+            <summary>
+            Desc:头像
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoUser.Sex">
+            <summary>
+            Desc:性别
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoUser.Mobile">
+            <summary>
+            Desc:手机号码
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoUser.VipLevel">
+            <summary>
+            VIP级别
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoUser.Status">
+            <summary>
+            Desc:状态
+            Default:b'1'
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoUser.Email">
+            <summary>
+            Desc:邮箱
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoUser.Integral">
+            <summary>
+            积分
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoUser.InvitationCode">
+            <summary>
+            邀请码
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoUser.CreateTime">
+            <summary>
+            Desc:添加时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoUser.LoginDate">
+            <summary>
+            Desc:登录时间
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Cms.AdoUser.UpLoginDate">
+            <summary>
+            Desc:上次登录时间
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.ID">
+            <summary>
+            唯一编号
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.ID">
+            <summary>
+            归属角色
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.DepartmentName">
+            <summary>
+            归属部门
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.OrganizeId">
+            <summary>
+            归属部门
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.OrganizeIdList">
+            <summary>
+            部门集合
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.Account">
+            <summary>
+            登录账号
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.Pwd">
+            <summary>
+            登录密码
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.RelName">
+            <summary>
+            真是姓名
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.Number">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.HeadPic">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.Mobile">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.Status">
+            <summary>
+            状态 1=整除 0=不允许登录
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.Summary">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.CreateTime">
+            <summary>
+            添加时间
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.LoginDate">
+            <summary>
+            当前登录时间
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAdmin.UpLoginDate">
+            <summary>
+            上次登录时间
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Models.Sys.SysAppSetting">
+            <summary>
+             APP版本更新表
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAppSetting.ID">
+            <summary>
+            Desc:
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAppSetting.AndroidVersion">
+            <summary>
+            Desc:安卓版本号
+            Default:0.0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAppSetting.AndroidFile">
+            <summary>
+            Desc:更新文件
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAppSetting.IosVersion">
+            <summary>
+            Desc:Ios版本号
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAppSetting.IosFile">
+            <summary>
+            Desc:Ios更新文件地址
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAppSetting.IosAudit">
+            <summary>
+            Desc:Ios审核开关  0=关/1=开
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAppSetting.IsDel">
+            <summary>
+            删除 0=不删除/1=删除
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysAppSetting.UpdateDate">
+            <summary>
+            Desc:更新时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="T:DL.Domain.Models.Sys.SysCode">
+            <summary>
+             字典值
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysCode.ID">
+            <summary>
+            Desc:唯一标号ID
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysCode.ParentId">
+            <summary>
+            Desc:字典类型标识
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysCode.CodeType">
+            <summary>
+            Desc:字典值——类型
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysCode.Name">
+            <summary>
+            Desc:字典值——名称
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysCode.EnName">
+            <summary>
+            Desc:字典值——英文名称
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysCode.Sort">
+            <summary>
+            Desc:字典值——排序
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysCode.Status">
+            <summary>
+            Desc:字典值——状态
+            Default:b'1'
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysCode.Summary">
+            <summary>
+            Desc:字典值——描述
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysCode.CreateTime">
+            <summary>
+            Desc:字典值——添加时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysCode.CreateTime">
+            <summary>
+            Desc:字典值——修改时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="T:DL.Domain.Models.Sys.SysCodeType">
+            <summary>
+             字典类型
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysCodeType.ID">
+            <summary>
+            Desc:唯一标号ID
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysCodeType.ParentId">
+            <summary>
+            Desc:字典类型父级
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysCodeType.Layer">
+            <summary>
+            Desc:深度
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysCodeType.Name">
+            <summary>
+            Desc:字典类型名称
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysCodeType.Sort">
+            <summary>
+            Desc:字典类型排序
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysCodeType.CreateTime">
+            <summary>
+            Desc:
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysCodeType.CreateTime">
+            <summary>
+            Desc:添加时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="T:DL.Domain.Models.Sys.SysImage">
+            <summary>
+             图片表
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysImage.ID">
+            <summary>
+            Desc:
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysImage.TheID">
+            <summary>
+            Desc:所属栏目ID
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysImage.Types">
+            <summary>
+            Desc:图片类型，一个栏目可有多个图片类型
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysImage.Title">
+            <summary>
+            Desc:图片名称
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysImage.ImgBig">
+            <summary>
+            Desc:图片原图
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysImage.ImgSmall">
+            <summary>
+            Desc:图片缩略图
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysImage.IsCover">
+            <summary>
+            Desc:是否为封面
+            Default:b'0'
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysImage.Sort">
+            <summary>
+            Desc:排序字段
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="T:DL.Domain.Models.Sys.SysLog">
+            <summary>
+             系统操作表
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysLog.ID">
+            <summary>
+            Desc:唯一标号ID
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysLog.Application">
+            <summary>
+            应用程序
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysLog.Logged">
+            <summary>
+            时间
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysLog.Level">
+            <summary>
+            日志等级
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysLog.Message">
+            <summary>
+            消息内容
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysLog.Logger">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysLog.Callsite">
+            <summary>
+            请求Url
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysLog.Exception">
+            <summary>
+            异常信息
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysLog.IP">
+            <summary>
+            IP地址
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysLog.User">
+            <summary>
+            认证用户名
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysLog.UserName">
+            <summary>
+            认证用户名
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysLog.Browser">
+            <summary>
+            浏览器信息
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Models.Sys.SysMenu">
+            <summary>
+             系统菜单表
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysMenu.ID">
+            <summary>
+            Desc:唯一标识ID
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysMenu.ParentId">
+            <summary>
+            Desc:菜单父级ID
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysMenu.ParentName">
+            <summary>
+            父级名称
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysMenu.Name">
+            <summary>
+            Desc:菜单名称
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysMenu.EnCode">
+            <summary>
+            Desc:菜单名称标识
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysMenu.ParentIdList">
+            <summary>
+            Desc:所属父级的集合
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysMenu.Layer">
+            <summary>
+            Desc:菜单深度
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysMenu.Urls">
+            <summary>
+            Desc:菜单Url
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysMenu.Icon">
+            <summary>
+            Desc:菜单图标Class
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysMenu.IconColor">
+            <summary>
+            按钮颜色
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysMenu.Sort">
+            <summary>
+            Desc:菜单排序
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysMenu.Status">
+            <summary>
+            Desc:菜单状态 true=正常 false=不显示
+            Default:b'1'
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysMenu.IsDeskTop">
+            <summary>
+            是否保存到桌面
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysMenu.OperationIds">
+            <summary>
+            菜单按钮功能的值，关联Code
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysMenu.CreateTime">
+            <summary>
+            Desc:修改时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysMenu.AddTIme">
+            <summary>
+            Desc:添加时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysMenu.cbks">
+            <summary>
+            授权功能  和数据库没关系
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Models.Sys.SysOrganize">
+            <summary>
+             组织表
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysOrganize.ID">
+            <summary>
+            Desc:唯一编号
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysOrganize.ParentId">
+            <summary>
+            Desc:父节点
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysOrganize.Name">
+            <summary>
+            Desc:组织名称
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysOrganize.ParentName">
+            <summary>
+            Desc:父节名称
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysOrganize.Layer">
+            <summary>
+            Desc:层级
+            Default:0
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysOrganize.ParentIdList">
+            <summary>
+            Desc:父节点集合
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysOrganize.Sort">
+            <summary>
+            Desc:排序
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysOrganize.Status">
+            <summary>
+            Desc:状态
+            Default:b'0'
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysOrganize.CreateTime">
+            <summary>
+            Desc:修改时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="T:DL.Domain.Models.Sys.SysPermissions">
+            <summary>
+             权限角色管理菜单表
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysPermissions.ID">
+            <summary>
+            Desc:角色ID
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysPermissions.AdminId">
+            <summary>
+            管理员编号
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysPermissions.MenuId">
+            <summary>
+            Desc:菜单ID
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysPermissions.OperationIds">
+            <summary>
+            角色-菜单-权限按钮Json
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysPermissions.Types">
+            <summary>
+            授权类型1=角色-菜单 2=用户-角色 3=角色-菜单-按钮功能
+            默认=1
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysPermissions.status">
+            <summary>
+            用户授权角色 状态  和数据库字段没关系
+            默认=1
+            </summary>
+        </member>
+        <member name="T:DL.Domain.Models.Sys.SysRole">
+            <summary>
+             权限角色表
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysRole.ID">
+            <summary>
+            Desc:
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysRole.OrganizeId">
+            <summary>
+            Desc:部门ID
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysRole.DepartmentName">
+            <summary>
+            部门名称
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysRole.DepartmentGroup">
+            <summary>
+            归属于角色组
+            </summary>
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysRole.Name">
+            <summary>
+            Desc:部门名称
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysRole.Codes">
+            <summary>
+            Desc:部门编号
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysRole.IsSystem">
+            <summary>
+            Desc:是否为超级管理员
+            Default:b'0'
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysRole.Summary">
+            <summary>
+            Desc:部门描述
+            Default:
+            Nullable:True
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysRole.CreateTime">
+            <summary>
+            Desc:添加时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+        <member name="P:DL.Domain.Models.Sys.SysRole.CreateTime">
+            <summary>
+            Desc:修改时间
+            Default:
+            Nullable:False
+            </summary>           
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "$DescName$";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using $Using$
+@model $ModelName$
+
+<div id="app">
+    <form class="layui-form form-cus" action="" lay-filter="forms">
+         $Form$ 
+        <div class="layui-form-item layui-cur-submit">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="submit" id="submit">
+                    <i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-hide"></i>立即提交
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary btn-open-close">取消</button>
+            </div>
+        </div>
+        $Hidden$
+    </form>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        layui.config({
+            base: '/js/modules/'
+        }).use(['layer','laydate', 'jquery', 'api', 'form'], function () {
+            var form = layui.form,
+                $ = layui.$,
+                laydate = layui.laydate,
+                api = layui.api,
+                index = parent.layer.getFrameIndex(window.name);
+            $JavaScript$
+            //监听提交
+            form.on('submit(submit)', function (data) {
+
+                $('#submit').attr('disabled', true).find('i').removeClass('layui-hide');
+                var url = "$AreaName$/$ControllerName$/Add";
+                if ($("#ID").val()) {
+                    url = "$AreaName$/$ControllerName$/Update";
+                }
+
+                api.ajax(url, 'POST', data.field, function (res) {
+                    $('#submit').attr('disabled', false).find('i').addClass('layui-hide');
+                    if (res.statusCode === 200) {
+                        api.success(res.msg);
+                        parent.layer.close(index);
+                    } else {
+                        api.error(res.msg);
+                    }
+                });
+                return false;
+            });
+            $(".btn-open-close").on('click', function () {
+                parent.layer.close(index);
+            });
+        });
+    </script>
+}

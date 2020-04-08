@@ -1,0 +1,159 @@
+﻿@{
+    ViewData["Title"] = "用户评论";
+    var users = ViewBag.Users as List<AdoUser>;
+}
+@model AdoComment
+
+<div id="app">
+    <form class="layui-form form-cus" action="" lay-filter="forms">
+        @*<div class="layui-form-item">
+            <label class="layui-form-label">评论栏目</label>
+            <div class="layui-input-block">
+                <input type="text" name="ColumnId" value="@Model.ColumnId"
+                       placeholder="请输入评论栏目" class="layui-input">
+            </div>
+        </div>*@
+        <div class="layui-form-item">
+            <label class="layui-form-label">评论人</label>
+            <div class="layui-input-block">
+                <select name="UserID">
+                    <option value="">-请选择评论人-</option>
+                    @foreach (var item in users)
+                    {
+                        if (Model.UserID == item.ID)
+                        {
+                            <option selected="selected" value="@item.ID"> @item.NickName ( @item.LoginAccount) </option>
+                        }
+                        else
+                        {
+                            <option value="@item.ID"> @item.NickName ( @item.LoginAccount) </option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">内容</label>
+            <div class="layui-input-block">
+                <textarea name="Descption" class="layui-textarea" style="min-height: 60px;" placeholder="请输入内容">@Model.Descption</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">回复人员</label>
+            <div class="layui-input-block">
+                <select name="RepUserId">
+                    <option value="">-请选择回复人员-</option>
+                    @foreach (var item in users)
+                    {
+                        if (Model.RepUserId == item.ID)
+                        {
+                            <option selected="selected" value="@item.ID"> @item.NickName ( @item.LoginAccount) </option>
+                        }
+                        else
+                        {
+                            <option value="@item.ID"> @item.NickName ( @item.LoginAccount) </option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">回复时间</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" lay-verify="date" id="RepTime" name="RepTime" value="@Model.RepTime">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">审核状态</label>
+            <div class="layui-input-block">
+                <select name="Audit">
+                    @foreach (AuditEnum t in Enum.GetValues(typeof(AuditEnum)))
+                    {
+                        if (Model.Audit == (int)t)
+                        {
+                            <option selected="selected" value="@((int)t)">@t.GetEnumDisplayName()</option>
+                        }
+                        else
+                        {
+                            <option value="@((int)t)">@t.GetEnumDisplayName()</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否启用</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="IsEnable" lay-skin="switch" lay-text="开启|禁用" value="true" @(Model.IsEnable ? "checked" : "")>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <input type="text" name="Remark" value="@Model.Remark"
+                       lay-verify="required" lay-verType="tips" autocomplete="off" placeholder="请输入备注" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-cur-submit">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="submit" id="submit">
+                    <i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-hide"></i>立即提交
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary btn-open-close">取消</button>
+            </div>
+        </div>
+        <input type="hidden" name="ID" id="ID" value="@Model.ID" />
+        <input type="hidden" name="Creator" value="@Model.Creator" />
+        <input type="hidden" name="CreateTime" value="@Model.CreateTime" />
+        <input type="hidden" name="AuditAdminId" value="@Model.AuditAdminId" />
+        <input type="hidden" name="AuditTime" value="@Model.AuditTime" />
+        <input type="hidden" name="ColumnId" value="@Model.ColumnId" />
+    </form>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        layui.config({
+            base: '/js/modules/'
+        }).use(['layer', 'laydate', 'jquery', 'api', 'form'], function () {
+            var form = layui.form,
+                $ = layui.$,
+                laydate = layui.laydate,
+                api = layui.api,
+                index = parent.layer.getFrameIndex(window.name);
+
+            laydate.render({
+                elem: '#RepTime',
+                theme: '#393D49'
+            });
+            laydate.render({
+                elem: '#AuditTime',
+                theme: '#393D49'
+            });
+
+            //监听提交
+            form.on('submit(submit)', function (data) {
+
+                $('#submit').attr('disabled', true).find('i').removeClass('layui-hide');
+                var url = "Ado/Comment/Add";
+                if ($("#ID").val()) {
+                    url = "Ado/Comment/Update";
+                }
+                api.ajax(url, 'POST', data.field, function (res) {
+                    $('#submit').attr('disabled', false).find('i').addClass('layui-hide');
+                    if (res.statusCode === 200) {
+                        api.success(res.msg);
+                        parent.layer.close(index);
+                    } else {
+                        api.error(res.msg);
+                    }
+                });
+                return false;
+            });
+            $(".btn-open-close").on('click', function () {
+                parent.layer.close(index);
+            });
+        });
+    </script>
+}

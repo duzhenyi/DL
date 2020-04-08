@@ -1,0 +1,144 @@
+﻿@{
+    ViewData["Title"] = "角色分配功能模块";
+}
+<style>
+    .layui-table-view {
+        margin-top: 0px;
+    }
+
+    .layui-col-220 {
+        width: 300px;
+    }
+
+    .right-col-body {
+        left: 300px;
+    }
+
+    .list-wall {
+        padding-top: 0px;
+    }
+
+    .fyt-center {
+        padding-top: 6px;
+        text-align: center;
+    }
+
+    #tree {
+        height: 550px;
+        overflow: auto;
+    }
+
+    .layui-layer-loading {
+        box-shadow: 0 0px 0px rgba(0, 0, 0, .3) !important;
+    }
+
+    #open-form {
+        display: none;
+    }
+
+    .layui-form-select dl {
+        max-height: 150px;
+    }
+
+    .tips {
+        background-color: #fdf6ec;
+        color: #e6a23c;
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+        border-radius: 4px;
+        font-size: 13px;
+    }
+
+        .tips i {
+            margin-right: 5px;
+            position: relative;
+            top: 1px;
+        }
+
+    .dl-center {
+        text-align: center;
+    }
+</style>
+
+
+<div class="list-wall">
+    <div class="tips">
+        <i class="layui-icon layui-icon-tips"></i>菜单授权
+        <div class="dl-center"><button class="layui-btn" data-type="addRoleMenu" type="button">保存菜单权限</button></div>
+    </div>
+    <div id="tree" class="layui-tree-cus" style="overflow:auto;"></div>
+</div>
+
+<input type="hidden" id="roleID" value="@ViewBag.RoleID" />
+
+@section Scripts{
+    <script type="text/javascript">
+
+        layui.config({
+            base: '/js/modules/'
+        }).use(['layer', 'jquery', 'tree', 'api'],
+            function () {
+                var layer = layui.layer,
+                    $ = layui.jquery,
+                    api = layui.api,
+                    tree = layui.tree;
+
+                var selectIds = '',active = {
+                    loadtree() {
+                        api.ajax('Sys/Menu/GetMenuRoleTree?roleId=' + $("#roleID").val(), 'GET', {}, function (res) {
+                            
+                            tree.render({
+                                elem: '#tree',
+                                data: res,
+                                id: "treeId",
+                                showCheckbox: true,
+                                onlyIconControl: true,//是否仅允许节点左侧图标控制展开收缩
+                                click: function (obj) {
+                                    id = obj.data.id;
+                                }
+                            });
+                        });
+                    },
+                    serverArray(arr) {
+                        for (var item = 0; item < arr.length; item++) {
+                            selectIds += arr[item].id + ",";
+                            if (arr[item].children) {
+                                active.serverArray(arr[item].children)
+                            }
+                        }
+                        return selectIds
+                    },
+                    addRoleMenu: function () {
+                        var checkedData = tree.getChecked('treeId');
+                        if (checkedData.length == 0) {
+                            api.warning('请选择授权的功能模块~');
+                            return;
+                        }
+                        var strMenu = active.serverArray(checkedData);
+                        selectIds = '';
+                        //开始提交信息
+                        var index = layer.load(1, {
+                            shade: [0.1, '#fff']
+                        });
+
+                        api.ajax("Sys/RoleMenu/Add", 'post', { RoleID: $("#roleID").val(), MenuID: strMenu, RoleType: 1 }, function (res) {
+                            layer.close(index);
+                            if (res.statusCode === 200) {
+                                api.success('授权成功~');
+                            } else {
+                                api.error(res.msg);
+                            }
+                        });
+                    }
+                };
+
+                active.loadtree();
+
+                $('.list-wall .layui-btn').on('click', function () {
+                    var type = $(this).data('type');
+                    active[type] ? active[type].call(this) : '';
+                });
+            });
+    </script>
+}

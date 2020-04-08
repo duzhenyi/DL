@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DL.Admin</title>
+
+    <environment include="Development">
+        <link rel='Shortcut Icon' type='image/x-icon' href='~/images/os_windows.png'>
+
+        <link rel="stylesheet" href="~/layui/css/layui.css" />
+        <link rel="stylesheet" href="~/font-awesome-4.7.0/css/font-awesome.css" />
+        <link rel="stylesheet" href="~/win10/css/animate.css" />
+        <link rel="stylesheet" href="~/win10/css/default.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/icon.css" />
+        <style>
+            * {
+                font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu
+            }
+            /*磁贴自定义样式*/
+            .win10-block-content-text {
+                line-height: 44px;
+                text-align: center;
+                font-size: 16px;
+            }
+            .select-tree {
+                position: absolute;
+                background-color: #fff;
+                padding: 5px 15px;
+                z-index: 1000;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+                border-radius: 4px;
+                opacity: 0;
+                height: 0;
+                display: none;
+            }
+
+                .select-tree.active {
+                    display: block;
+                    opacity: 1;
+                    height: auto;
+                    max-height: 300px;
+                    overflow: auto;
+                    transition: all .5s;
+                }
+        </style>
+    </environment>
+    <environment exclude="Development">
+        <link rel='Shortcut Icon' type='image/x-icon' href='~/images/os_windows.png'>
+
+        <link rel="stylesheet" href="~/layui/css/layui.css" />
+        <link rel="stylesheet" href="~/font-awesome-4.7.0/css/font-awesome.css" />
+        <link rel="stylesheet" href="~/win10/css/animate.css" />
+        <link rel="stylesheet" href="~/win10/css/default.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/icon.css" />
+        <style>
+            * {
+                font-family: "Microsoft YaHei", 微软雅黑, "MicrosoftJhengHei", 华文细黑, STHeiti, MingLiu
+            }
+            /*磁贴自定义样式*/
+            .win10-block-content-text {
+                line-height: 44px;
+                text-align: center;
+                font-size: 16px;
+            } 
+        </style>
+    </environment>
+
+</head>
+<body>
+    <environment include="Development">
+        <script type="text/javascript" src="~/layui/layui.js"></script>
+        <script type="text/javascript" src="~/win10/js/jquery-2.2.4.min.js"></script> 
+    </environment>
+    <environment exclude="Development">
+        <script type="text/javascript" src="~/layui/layui.js"></script>
+        <script type="text/javascript" src="~/win10/js/jquery-2.2.4.min.js"></script> 
+    </environment>
+
+    @RenderBody()
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

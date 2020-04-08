@@ -1,0 +1,219 @@
+﻿@{
+    ViewData["Title"] = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div id="container">
+        <div class="list-wall"> 
+            <div class="layui-colla-item">
+<h2 class="layui-colla-title">条件筛选</h2>
+<div class="layui-colla-content layui-show">
+<div class="layui-form list-search">
+<div class="layui-input-inline">
+<label class="layui-form-label"></label>
+<div class="layui-input-inline">
+<input class="layui-input" id ="title" autocomplete ="off" placeholder ="请输入查询" > 
+</div>
+</div>
+<div class="layui-input-inline">
+<label class="layui-form-label">是否启用 默认不启用</label>
+<div class="layui-input-inline">
+<input type="checkbox" name ="isEnable"  lay-text="展示|隐藏" lay-skin = "switch" >
+</div>
+</div>
+<div class="layui-input-inline">
+<label class="layui-form-label">创建时间</label>
+<div class="layui-input-inline">
+<input class="layui-input" id ="createTime" autocomplete ="off"  >
+</div>
+</div>
+<button type = "button" class="layui-btn layui-btn-sm" data-type="search"><i class="layui-icon layui-icon-search"></i>搜索</button>
+
+</div>
+</div>
+</div>
+ 
+            <table class="layui-table" id="tablist" lay-filter="tabFilter"></table>
+        </div>
+          
+        <script type="text/html" id="editTool">
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i> 修改</a>
+        </script>
+
+        <script type="text/html" id='isTopSwitch'>
+<input type='checkbox' name='IsTop' lay-skin="switch" lay-text="展示|隐藏"  {{ d.IsTop?'checked':''}} disabled=''>
+</script>
+<script type="text/html" id='isHotSwitch'>
+<input type='checkbox' name='IsHot' lay-skin="switch" lay-text="展示|隐藏"  {{ d.IsHot?'checked':''}} disabled=''>
+</script>
+<script type="text/html" id='isScrollSwitch'>
+<input type='checkbox' name='IsScroll' lay-skin="switch" lay-text="展示|隐藏"  {{ d.IsScroll?'checked':''}} disabled=''>
+</script>
+<script type="text/html" id='isSlideSwitch'>
+<input type='checkbox' name='IsSlide' lay-skin="switch" lay-text="展示|隐藏"  {{ d.IsSlide?'checked':''}} disabled=''>
+</script>
+<script type="text/html" id='isCommentSwitch'>
+<input type='checkbox' name='IsComment' lay-skin="switch" lay-text="展示|隐藏"  {{ d.IsComment?'checked':''}} disabled=''>
+</script>
+<script type="text/html" id='isEnableSwitch'>
+<input type='checkbox' name='IsEnable' lay-skin="switch" lay-text="展示|隐藏"  {{ d.IsEnable?'checked':''}} disabled=''>
+</script>
+
+
+        <script type="text/html" id="toolBarId">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon layui-icon-add-circle"></i>添加</button>
+                <button class="layui-btn layui-btn-sm" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</button>
+            </div>
+        </script>
+
+    </div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        layui.config({
+            base: '/js/modules/'
+        }).use(['element', 'form', 'table', 'layer', 'jquery', 'api', 'laydate'],
+            function () {
+
+                var table = layui.table,
+                    layer = layui.layer,
+                    laydate = layui.laydate,
+                    $ = layui.jquery,
+                    api = layui.api;
+
+                    laydate.render({
+elem: '#createTime',
+ theme: '#393D49',
+format: 'yyyy/MM/dd',
+range: true
+});
+
+                table.render({
+                    elem: '#tablist',
+                    id: 'tables',
+                    headers: api.getToken(),
+                    url: '/Ado/Work/GetPages',
+                    page: true,
+                    page: { limits: [10, 20, 50, 100], groups: 8 },
+                    toolbar: '#toolBarId', //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+                    defaultToolbar: ['filter', 'exports', 'print'],
+                    cols: [
+                        [
+                            { type: 'checkbox', fixed: 'left' },
+                            { field: 'UserID', title: '', align: 'left' },
+{ field: 'Title', title: '', align: 'left' },
+{ field: 'IndustryId', title: '', align: 'left' },
+{ field: 'SexType', title: ' 性别要求 不限 男 女', align: 'left' },
+{ field: 'WorkType', title: '工作类型 '全职', '临时兼职', '短期兼职', '周末兼职','长期兼职'', align: 'left' },
+{ field: 'SettlementAmountType', title: '工资结算方式 '小时结算', '日结算', '周结算', '月结算', '完成量结算', '完工结算'', align: 'left' },
+{ field: 'EducationType', title: '学历要求', align: 'left' },
+{ field: 'Money', title: '岗位薪酬', align: 'left' },
+{ field: 'WorkCount', title: '招聘人数', align: 'left' },
+{ field: 'WorkDeposit', title: '工作押金', align: 'left' },
+{ field: 'ShopName', title: '商家名称', align: 'left' },
+{ field: 'LinkName', title: '联系人', align: 'left' },
+{ field: 'LinkWeiXin', title: '联系人微信', align: 'left' },
+{ field: 'LinkTel', title: '联系电话', align: 'left' },
+{ field: 'WorkTime', title: '工作时间', align: 'left' },
+{ field: 'WorkArea', title: '工作区域', align: 'left' },
+{ field: 'Address', title: '工作地址', align: 'left' },
+{ field: 'Responsibilities', title: '岗位职责', align: 'left' },
+{ field: 'Requirements', title: '岗位要求', align: 'left' },
+{ field: 'EndShowTime', title: '结束展示时间', align: 'left' },
+{ field: 'IsTop', title: '是否置顶', align: 'center',templet: '#isTopSwitch' },
+{ field: 'IsHot', title: '是否最热', align: 'center',templet: '#isHotSwitch' },
+{ field: 'IsScroll', title: '是否滚动', align: 'center',templet: '#isScrollSwitch' },
+{ field: 'IsSlide', title: '是否幻灯片', align: 'center',templet: '#isSlideSwitch' },
+{ field: 'IsComment', title: '是否允许评论', align: 'center',templet: '#isCommentSwitch' },
+{ field: 'TagIds', title: '所属标签', align: 'left' },
+{ field: 'Audit', title: '审核状态', align: 'left' },
+{ field: 'AuditAdminId', title: '审核人', align: 'left' },
+{ field: 'AuditTime', title: '审核时间', align: 'left' },
+{ field: 'AuditDesc', title: '审核描述', align: 'left' },
+{ field: 'Hits', title: '访问量', align: 'left' },
+{ field: 'IsEnable', title: '是否启用 默认不启用', align: 'center',templet: '#isEnableSwitch' },
+{ field: 'Remark', title: '备注', align: 'left' },
+
+                            { width: 100, title: '操作', templet: '#editTool' }
+                        ]
+                    ]
+                });
+
+                var active = {
+                    //刷新右侧表格
+                    reload: function () {
+                        table.reload('tables', {
+                            page: { curr: 1 },
+                            where: {
+                                title:$('#title').val(),
+isEnable:$('#isEnable').val(),
+createTime:$('#createTime').val(),
+
+                            }
+                        });
+                    },
+                    search: function() {
+active.reload();
+},
+
+                    //弹出添加页面
+                    add: function () {
+                        api.Open('添加', '/Ado/Work/Modify', '620px', '450px', function () {
+                            active.reload();
+                        });
+                    },
+                    //删除右侧表格的项
+                    del: function () {
+                        var checkStatus = table.checkStatus('tables'), data = checkStatus.data;
+                        if (data.length === 0) {
+                            api.error("请选择要删除的项目");
+                            return;
+                        }
+                        var ids = '';
+                        $.each(data, function (i, item) {
+                            ids += item.ID + ",";
+                        });
+                        if (ids == '') {
+                            api.error("请选择要删除的项目");
+                            return;
+                        }
+                        layer.confirm('确定要执行批量删除吗？', function (index) {
+                            layer.close(index);
+                            var loadindex = layer.load(1, {
+                                shade: [0.1, '#000']
+                            });
+                            api.ajax('Ado/Work/Delete/', 'post', { ids: ids }, function (res) {
+                                layer.close(loadindex);
+                                if (res.statusCode === 200) {
+                                    active.reload();
+                                    api.success(res.msg);
+                                } else {
+                                    api.error(res.msg);
+                                }
+                            });
+                        });
+
+                    }
+                };
+
+                //按钮点击事件
+                $('.list-search .layui-btn').on('click', function () {
+                    var type = $(this).data('type');
+                    active[type] ? active[type].call(this) : '';
+                });
+                 table.on('toolbar(tabFilter)', function (obj) {
+                    active[obj.event] ? active[obj.event].call(this) : '';
+                });
+                //监听工具条
+                table.on('tool(tabFilter)', function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'edit') {
+                        api.Open('编辑$Desc$', '/Ado/Work/Modify/?id=' + data.ID, '620px', '450px', function () {
+                            active.reload();
+                        })
+                    }
+                });
+            });
+    </script>
+}

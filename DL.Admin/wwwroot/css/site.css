@@ -1,0 +1,234 @@
+﻿.layui-col-220 {
+    width: 220px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    -webkit-transition: position,.2s,linear;
+    -moz-transition: position,.2s,linear;
+    background-color: #eaedf1
+}
+
+    .layui-col-220 .layui-nav-title {
+        width: 100%;
+        height: 70px;
+        line-height: 70px;
+        background: #d9dee4;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: bold;
+        text-indent: 20px
+    }
+
+
+    .layui-col-220 .layui-nav-title {
+        width: 100%;
+        height: 70px;
+        line-height: 70px;
+        background: #d9dee4;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: bold;
+        text-indent: 20px
+    }
+
+.layui-nav-title span {
+    display: inline-block;
+    margin-right: 20px
+}
+
+.right-col-body {
+    left: 220px;
+    position: absolute;
+    width: auto;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+    overflow-y: auto;
+    -o-transition: all .2s ease;
+    -ms-transition: all .2s ease;
+    -moz-transition: all .2s ease;
+    -webkit-transition: all .2s ease
+}
+
+.list-wall {
+    padding: 12px 12px 0 12px
+}
+
+
+
+.layui-tree-cus li {
+    padding: 4px 0
+}
+
+.ztree * {
+    font-size: 13.3333px !important
+}
+
+.ztree li a {
+    height: 28px !important
+}
+
+/* 单页 样式 */
+.form-cus {
+    padding: 15px 35px 0 0
+}
+
+    .form-cus.form-tab {
+        padding: 0 20px 0 15px
+    }
+
+        .form-cus.form-tab .layui-tab-item {
+            padding-top: 10px
+        }
+
+        .form-cus.form-tab .add-icons {
+            text-align: center;
+            cursor: pointer
+        }
+
+            .form-cus.form-tab .add-icons i {
+                vertical-align: middle;
+                margin-right: 5px
+            }
+
+
+
+/*图标颜色*/
+.iconColor {
+    font-family: 'Source Code Pro';
+    display: inline-block !important;
+    width: 80px;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+
+.select-tree {
+    position: absolute;
+    background-color: #fff;
+    padding: 5px 25px;
+    z-index: 1000;
+    box-shadow: 0 0 24px rgba(0,0,0,.18);
+    opacity: 0;
+    height: 0;
+    display: none;
+}
+
+    .select-tree.active {
+        display: block;
+        opacity: 1;
+        height: auto;
+        max-height: 500px;
+        overflow: auto;
+        transition: all .5s;
+    }
+
+.layui-col-220 .layui-nav-title {
+    line-height: 20px;
+    height: auto;
+    padding: 10px 0 10px 10px;
+    text-indent: 0px;
+    width: auto;
+}
+
+.layui-btn-group .layui-btn {
+    background: #e7eaef !important;
+    border-color: #e7eaef !important;
+    color: #333;
+}
+
+    .layui-btn-group .layui-btn.active {
+        background-color: #409eff !important;
+        border-color: #409eff !important;
+        color: #fff;
+    }
+
+/* 一行2列表单 */
+.panel-body {
+    padding-top: 15px;
+    padding-right: 450px;
+    position: relative;
+}
+
+.panel-addpic {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 350px;
+}
+
+    .panel-addpic .text {
+        height: 26px;
+        line-height: 26px;
+        color: #76838f;
+        font-size: 16px;
+        margin-bottom: 10px;
+        color: #333;
+        font-weight: bold;
+    }
+
+        .panel-addpic .text.else {
+            margin-top: 30px;
+        }
+
+
+
+
+.form-switch {
+    margin-top: 50px;
+}
+
+    .form-switch .layui-input-block {
+        margin-left: 0px;
+    }
+
+        .form-switch .layui-input-block span {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            top: 6px;
+            width: 100px;
+        }
+
+.text-color {
+    color: #21b384
+}
+
+.form-back {
+    background-color: #F6F7F9;
+    padding: 15px 16px 0 15px;
+}
+
+    .form-back .panel-body {
+        background-color: #ffffff;
+    }
+
+    .form-back .panel-addpic {
+        border-left: 15px solid #f6f7f9;
+        padding: 10px 15px;
+    }
+
+.form-cur-wall {
+    margin-top: 10px;
+}
+
+    .form-cur-wall label {
+        width: 80px;
+        display: inline-block;
+        vertical-align: middle;
+        float: left;
+        text-align: right;
+        line-height: 40px;
+    }
+
+    .form-cur-wall .layui-input-block {
+        padding-left: 90px;
+        margin-left: 0px;
+    }
+
+        .form-cur-wall .layui-input-block .layui-form-checkbox {
+            margin-bottom: 15px;
+        }

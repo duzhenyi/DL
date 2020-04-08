@@ -1,0 +1,148 @@
+﻿@{
+    ViewData["Title"] = "组织架构";
+}
+
+<div id="container">
+    <div class="layui-col-220">
+        <div class="layui-nav-title">组织架构</div>
+        <div id="tree" class="layui-tree-cus"></div>
+    </div>
+    <div class="right-col-body">
+        <div class="list-wall">
+            <div class="layui-form list-search">
+                <button type="button" class="layui-btn layui-btn-sm" data-type="add"><i class="layui-icon layui-icon-add-circle"></i> 新增</button>
+                <button type="button" class="layui-btn layui-btn-sm" data-type="del"><i class="layui-icon layui-icon-delete"></i> 删除</button>
+            </div>
+            <table class="layui-hide" id="tablist" lay-filter="tbfilter"></table>
+        </div>
+    </div>
+    <script type="text/html" id="isEnableSwitch">
+        <input type="checkbox" name="IsEnable" value="{{d.ID}}" lay-skin="switch" lay-text="启用|冻结" lay-filter="statusedit" {{ d.IsEnable?'checked':''}} disabled="">
+    </script>
+    <script type="text/html" id="editTool">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i> 修改</a>
+    </script>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        layui.config({
+            base: '/js/modules/'
+        }).use(['table', 'layer', 'jquery', 'tree', 'api'],
+            function () {
+
+                var table = layui.table,
+                    layer = layui.layer,
+                    $ = layui.jquery,
+                    api = layui.api,
+                    tree = layui.tree,
+                    pid = '';//根据主键,获取下面的所有子集
+
+                //加载右侧列表
+                table.render({
+                    elem: '#tablist',
+                    id: 'tables',
+                    page: true,
+                    page: { limits: [10, 20, 50, 100], groups: 8 },
+                    url: '/Sys/Organize/GetPages',
+                    headers: api.getToken(),
+                    cols: [
+                        [
+                            { type: 'checkbox', fixed: 'left' },
+                            { field: 'Name', title: '组织名称', fixed: 'left' },
+                            { field: 'ParentName', title: '父节点名称' },
+                            { field: 'Layer', title: '深度', sort: true },
+                            { field: 'Sort', title: '排序', sort: true },
+                            { field: 'IsEnable', title: '启用标记', templet: '#isEnableSwitch' },
+                            { field: 'Creator', title: '创建人' },
+                            { field: 'CreateTime', title: '创建时间', sort: true },
+                            { field: 'Remark', title: '备注' },
+                            { width: 100, title: '操作', templet: '#editTool' }
+                        ]
+                    ]
+                });
+
+                var active = {
+                    //刷新右侧表格
+                    loadtable: function () {
+                        console.log(pid);
+                        table.reload('tables', {
+                            page: { curr: 1 },
+                            where: { pid: pid }
+                        });
+                    },
+                    //加载左侧树形列表
+                    loadtree() {
+                        api.ajax('Sys/Organize/GetTree', 'GET', {}, function (res) {
+                            tree.render({
+                                elem: '#tree',
+                                data: res,
+                                onlyIconControl: true,
+                                click: function (obj) {//点击左侧树形菜单
+                                    pid = obj.data.id;//这里的id是树形控件的
+                                    active.loadtable();
+                                }
+                            });
+                        });
+                    },
+                    //弹出添加页面
+                    add: function () {
+                        api.Open('添加部门', '/Sys/Organize/Modify', '620px', '370px', function () {
+                            active.loadtable();
+                            active.loadtree();
+                        });
+                    },
+                    //删除右侧表格项
+                    del: function () {
+                        var checkStatus = table.checkStatus('tables'), data = checkStatus.data;
+                        if (data.length === 0) {
+                            api.warning("请选择要删除的项目~");
+                            return;
+                        }
+                        var ids = '';
+                        $.each(data, function (i, item) {
+                            ids += item.ID + ",";
+                        });
+                        layer.confirm('确定要执行批量删除吗？', function (index) {
+                            layer.close(index);
+                            var loadindex = layer.load(1, {
+                                shade: [0.1, '#000']
+                            });
+                            api.ajax('Sys/Organize/Delete/', 'POST', { ids: ids }, function (res) {
+                                layer.close(loadindex);
+                                if (res.statusCode === 200) {
+                                    active.loadtable();
+                                    active.loadtree();
+                                    api.success(res.msg);
+                                } else {
+                                    api.error(res.msg);
+                                }
+                            });
+                        });
+                    },
+                    edit: function (obj) {
+                        var data = obj.data;
+                        if (obj.event === 'edit') {
+                            api.Open('编辑部门', '/Sys/Organize/Modify/?id=' + data.ID, '620px', '370px', function () {
+                                active.loadtable();
+                                active.loadtree();
+                            })
+                        }
+                    }
+                };
+
+                //加载树形菜单
+                active.loadtree();
+
+                //按钮点击事件
+                $('.list-search .layui-btn').on('click', function () {
+                    var type = $(this).data('type');
+                    active[type] ? active[type].call(this) : '';
+                });
+
+                //监听工具条
+                table.on('tool(tbfilter)', function (obj) {
+                    active.edit(obj);
+                });
+            });
+    </script>
+}

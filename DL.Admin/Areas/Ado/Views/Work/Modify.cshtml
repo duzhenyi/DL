@@ -1,0 +1,240 @@
+﻿@{
+    ViewData["Title"] = "编辑";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using DL.Domain.Models.AdoModels
+@model AdoWork
+
+<div id="app">
+    <form class="layui-form form-cus" action="" lay-filter="forms">
+         <div class="layui-form-item">
+<label class="layui-form-label"></label>
+<div class="layui-input-block">
+<input type="text" name="UserID" value ="@Model.UserID" 
+placeholder ="请输入" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label"></label>
+<div class="layui-input-block">
+<input type="text" name="Title" value ="@Model.Title" 
+placeholder ="请输入" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label"></label>
+<div class="layui-input-block">
+<input type="text" name="IndustryId" value ="@Model.IndustryId" 
+placeholder ="请输入" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label"> 性别要求 不限 男 女</label>
+<div class="layui-input-block">
+<input type="text" name="SexType" value ="@Model.SexType" 
+placeholder ="请输入 性别要求 不限 男 女" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">工作类型 '全职', '临时兼职', '短期兼职', '周末兼职','长期兼职'</label>
+<div class="layui-input-block">
+<input type="text" name="WorkType" value ="@Model.WorkType" 
+placeholder ="请输入工作类型 '全职', '临时兼职', '短期兼职', '周末兼职','长期兼职'" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">工资结算方式 '小时结算', '日结算', '周结算', '月结算', '完成量结算', '完工结算'</label>
+<div class="layui-input-block">
+<input type="text" name="SettlementAmountType" value ="@Model.SettlementAmountType" 
+placeholder ="请输入工资结算方式 '小时结算', '日结算', '周结算', '月结算', '完成量结算', '完工结算'" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">学历要求</label>
+<div class="layui-input-block">
+<input type="text" name="EducationType" value ="@Model.EducationType" 
+placeholder ="请输入学历要求" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">岗位薪酬</label>
+<div class="layui-input-block">
+<input type="text" name="Money" value ="@Model.Money" 
+placeholder ="请输入岗位薪酬" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">招聘人数</label>
+<div class="layui-input-block">
+<input type="text" name="WorkCount" value ="@Model.WorkCount" 
+placeholder ="请输入招聘人数" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">工作押金</label>
+<div class="layui-input-block">
+<input type="text" name="WorkDeposit" value ="@Model.WorkDeposit" 
+placeholder ="请输入工作押金" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">商家名称</label>
+<div class="layui-input-block">
+<input type="text" name="ShopName" value ="@Model.ShopName" 
+lay-verify ="required" lay-verType="tips" autocomplete="off" placeholder ="请输入商家名称" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">联系人</label>
+<div class="layui-input-block">
+<input type="text" name="LinkName" value ="@Model.LinkName" 
+placeholder ="请输入联系人" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">联系人微信</label>
+<div class="layui-input-block">
+<input type="text" name="LinkWeiXin" value ="@Model.LinkWeiXin" 
+lay-verify ="required" lay-verType="tips" autocomplete="off" placeholder ="请输入联系人微信" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">联系电话</label>
+<div class="layui-input-block">
+<input type="text" name="LinkTel" value ="@Model.LinkTel" 
+placeholder ="请输入联系电话" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">工作区域</label>
+<div class="layui-input-block">
+<input type="text" name="WorkArea" value ="@Model.WorkArea" 
+placeholder ="请输入工作区域" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">工作地址</label>
+<div class="layui-input-block">
+<input type="text" name="Address" value ="@Model.Address" 
+placeholder ="请输入工作地址" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">岗位职责</label>
+<div class="layui-input-block">
+<input type="text" name="Responsibilities" value ="@Model.Responsibilities" 
+placeholder ="请输入岗位职责" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">岗位要求</label>
+<div class="layui-input-block">
+<input type="text" name="Requirements" value ="@Model.Requirements" 
+placeholder ="请输入岗位要求" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">是否置顶</label>
+<div class="layui-input-block">
+<input type="checkbox" name="IsTop" lay-skin="switch" lay-text = "开启|禁用" value = "true" @(Model.IsTop ? "checked" : "") > 
+</div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">是否最热</label>
+<div class="layui-input-block">
+<input type="checkbox" name="IsHot" lay-skin="switch" lay-text = "开启|禁用" value = "true" @(Model.IsHot ? "checked" : "") > 
+</div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">是否滚动</label>
+<div class="layui-input-block">
+<input type="checkbox" name="IsScroll" lay-skin="switch" lay-text = "开启|禁用" value = "true" @(Model.IsScroll ? "checked" : "") > 
+</div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">是否幻灯片</label>
+<div class="layui-input-block">
+<input type="checkbox" name="IsSlide" lay-skin="switch" lay-text = "开启|禁用" value = "true" @(Model.IsSlide ? "checked" : "") > 
+</div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">是否允许评论</label>
+<div class="layui-input-block">
+<input type="checkbox" name="IsComment" lay-skin="switch" lay-text = "开启|禁用" value = "true" @(Model.IsComment ? "checked" : "") > 
+</div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">所属标签</label>
+<div class="layui-input-block">
+<input type="text" name="TagIds" value ="@Model.TagIds" 
+placeholder ="请输入所属标签" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">审核状态</label>
+<div class="layui-input-block">
+<input type="text" name="Audit" value ="@Model.Audit" 
+placeholder ="请输入审核状态" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">审核人</label>
+<div class="layui-input-block">
+<input type="text" name="AuditAdminId" value ="@Model.AuditAdminId" 
+lay-verify ="required" lay-verType="tips" autocomplete="off" placeholder ="请输入审核人" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">审核描述</label>
+<div class="layui-input-block">
+<input type="text" name="AuditDesc" value ="@Model.AuditDesc" 
+lay-verify ="required" lay-verType="tips" autocomplete="off" placeholder ="请输入审核描述" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">访问量</label>
+<div class="layui-input-block">
+<input type="text" name="Hits" value ="@Model.Hits" 
+placeholder ="请输入访问量" class="layui-input"></div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">是否启用 默认不启用</label>
+<div class="layui-input-block">
+<input type="checkbox" name="IsEnable" lay-skin="switch" lay-text = "开启|禁用" value = "true" @(Model.IsEnable ? "checked" : "") > 
+</div>
+</div>
+<div class="layui-form-item">
+<label class="layui-form-label">备注</label>
+<div class="layui-input-block">
+<input type="text" name="Remark" value ="@Model.Remark" 
+lay-verify ="required" lay-verType="tips" autocomplete="off" placeholder ="请输入备注" class="layui-input"></div>
+</div>
+ 
+        <div class="layui-form-item layui-cur-submit">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="submit" id="submit">
+                    <i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-hide"></i>立即提交
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary btn-open-close">取消</button>
+            </div>
+        </div>
+        <input type="hidden" name="WorkTime" id="WorkTime" value="@Model.WorkTime" />
+<input type="hidden" name="EndShowTime" id="EndShowTime" value="@Model.EndShowTime" />
+<input type="hidden" name="AuditTime" id="AuditTime" value="@Model.AuditTime" />
+
+    </form>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        layui.config({
+            base: '/js/modules/'
+        }).use(['layer', 'jquery', 'api', 'form'], function () {
+            var form = layui.form,
+                $ = layui.$,
+                api = layui.api,
+                slider = layui.slider,
+                index = parent.layer.getFrameIndex(window.name);
+           
+            //监听提交
+            form.on('submit(submit)', function (data) {
+
+                $('#submit').attr('disabled', true).find('i').removeClass('layui-hide');
+                var url = "Ado/Work/Add";
+                if ($("#ID").val()) {
+                    url = "Ado/Work/Update";
+                }
+
+                api.ajax(url, 'POST', data.field, function (res) {
+                    $('#submit').attr('disabled', false).find('i').addClass('layui-hide');
+                    if (res.statusCode === 200) {
+                        parent.layer.close(index);
+                    } else {
+                        api.error(res.msg);
+                    }
+                });
+                return false;
+            });
+            $(".btn-open-close").on('click', function () {
+                parent.layer.close(index);
+            });
+        });
+    </script>
+}

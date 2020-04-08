@@ -1,0 +1,288 @@
+﻿@{
+    ViewData["Title"] = "资源模块";
+    var sysColums = ViewBag.SysColums as List<SysColumn>;
+    var tags = ViewBag.Tags as List<AdoTag>;
+}
+@using DL.Domain.Models.SysModels;
+@model AdoDownload
+
+<div id="app">
+    <form class="layui-form form-cus form-back" style="overflow-y:scroll; height:768px;" action="">
+        <div class="panel-body">
+            <div class="panel-addpic">
+                <div class="text">基本属性</div>
+                <div class="form-cur-wall">
+                    <label>所属栏目</label>
+                    <div class="layui-input-block">
+                        <select name="SysColumnId" lay-verify="required" lay-search="">
+                            <option value="">-请选择所属栏目-</option>
+                            @{
+                                var pSysColumn = sysColums.Where(m => string.IsNullOrEmpty(m.ParentID));
+                                foreach (var t in pSysColumn)
+                                {
+                                    <optgroup label="@t.Title">
+                                        @foreach (var item in sysColums.Where(m => m.ParentID == t.ID))
+                                        {
+                                            if (item.ID == Model.SysColumnId)
+                                            {
+                                                <option selected="selected" value="@item.ID">@item.Title</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.ID">@item.Title</option>
+                                            }
+                                        }
+                                    </optgroup>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-cur-wall">
+                    <label>所属标签</label>
+                    <div class="layui-input-block">
+                        <select name="TagId" lay-verify="required" lay-search="">
+                            <option value="">-请选择所属标签-</option>
+                            @{
+                                foreach (AboutEnum t in Enum.GetValues(typeof(AboutEnum)))
+                                {
+                                    <optgroup label="@t.GetEnumDisplayName()">
+                                        @foreach (var item in tags.Where(m => m.TagType == (int)t))
+                                        {
+                                            @if (item.ID == Model.TagId)
+                                            {
+                                                <option selected="selected" value="@item.ID">@item.TagName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.ID">@item.TagName</option>
+                                            }
+
+                                        }
+                                    </optgroup>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-cur-wall">
+                    <label>上传地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="FileUrl" value="@Model.FileUrl" placeholder="" maxlength="30" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="form-cur-wall">
+                    <label>排序</label>
+                    <div class="layui-input-block">
+                        <input type="number" name="Sort" maxlength="100" value="@Model.Sort"
+                               placeholder="请输入排序" class="layui-input">
+                    </div>
+                </div>
+                <div class="form-cur-wall">
+                    <label>封面图</label>
+                    <div class="layui-input-block">
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn layui-btn-warm dl-cloud" data-text="FrontCoverImgUrl" data-type="iframe">上传图片</button>
+                            <div class="layui-upload-list">
+                                <img class="layui-upload-img" style="width:180px; height:220px;" id="FrontCoverImgUrl_Img" name="FrontCoverImgUrl_Img" src="@Model.FrontCoverImgUrl">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-cur-wall">
+                    <label style="line-height:inherit;">内容属性</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="IsTop" @(Model.IsTop ? "checked=''" : "") lay-skin="primary" title="是否推荐">
+                        <input type="checkbox" name="IsHot" @(Model.IsHot ? "checked=''" : "") lay-skin="primary" title="是否热点">
+                        <input type="checkbox" name="IsComment" @(Model.IsComment ? "checked=''" : "") lay-skin="primary" title="是否允许评论">
+                    </div>
+                </div>
+                <div class="form-cur-wall layui-clear">
+                    <label>审核状态</label>
+                    <div class="layui-input-block">
+                        <select name="Audit" maxlength="100">
+                            @foreach (AuditEnum t in Enum.GetValues(typeof(AuditEnum)))
+                            {
+                                if (Model.Audit == (int)t)
+                                {
+                                    <option selected="selected" value="@((int)t)">@t.GetEnumDisplayName()</option>
+                                }
+                                else
+                                {
+                                    <option value="@((int)t)">@t.GetEnumDisplayName()</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-cur-wall">
+                    <label>是否启用</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="IsEnable" lay-skin="switch" lay-text="开启|禁用" value="true" @(Model.IsEnable ? "checked" : "")>
+                    </div>
+                </div>
+                <div class="form-cur-wall">
+                    <label>下载量</label>
+                    <div class="layui-input-block">
+                        <input type="number" name="DownTotalCount" value="@Model.DownTotalCount" lay-verify="required" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="form-cur-wall">
+                    <label>访问量</label>
+                    <div class="layui-input-block">
+                        <input type="number" name="Hits" value="@Model.Hits" lay-verify="required" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="form-cur-wall">
+                    <label>备注</label>
+                    <div class="layui-input-block">
+                        <textarea name="Remark" class="layui-textarea" style="min-height: 60px;" placeholder="请输入备注">@Model.Remark</textarea>
+                    </div>
+                </div>
+                <div style="height:50px;"></div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">标题</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="Title" value="@Model.Title" lay-verify="required" lay-verType="tips" autocomplete="off"
+                               placeholder="请输入标题" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">描述</label>
+                    <div class="layui-input-block">
+                        <textarea name="Descption" class="layui-textarea" style="min-height: 60px;" placeholder="请输入描述">@Model.Descption</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-row">
+                <div class="layui-col-md6 layui-col-xs12">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">是否加密</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="IsEncrypt" lay-skin="switch" lay-text="是|否" value="true" @(Model.IsEncrypt ? "checked" : "")>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md6 layui-col-xs12">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">加密密钥</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Pwd" value="@Model.Pwd"
+                                   placeholder="请输入加密密钥" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-md6 layui-col-xs12">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">是否有外链</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="IsLink" lay-skin="switch" lay-text="是|否" value="true" @(Model.IsLink ? "checked" : "")>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md6 layui-col-xs12">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">外链地址</label>
+                        <div class="layui-input-block">
+
+                            <input type="url" name="LinkUrl" lay-verify="url" value="@Model.LinkUrl"
+                                   placeholder="请输入外链地址" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">文章内容</label>
+                    <div class="layui-input-block">
+                        <textarea id="DownloadContent" name="DownloadContent" placeholder="请输入内容" class="layui-textarea">@Html.Raw(Model.DownloadContent)</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit="" lay-filter="submit" id="submit"><i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-hide"></i>立即提交</button>
+                    <button type="button" class="layui-btn layui-btn-primary btn-open-close">返回列表</button>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="ID" id="ID" value="@Model.ID" />
+        <input type="hidden" name="Creator" id="Creator" value="@Model.Creator" />
+        <input type="hidden" name="CreateTime" id="CreateTime" value="@Model.CreateTime" />
+        <input type="hidden" name="FrontCoverImgUrl" id="FrontCoverImgUrl" value="@Model.FrontCoverImgUrl" />
+    </form>
+</div>
+@section Scripts{
+    <script src="/js/tinymce/tinymce.min.js"></script>
+    <script src="/js/tinymce/langs/zh_CN.js"></script>
+    <script type="text/javascript">
+
+        var active;
+
+        tinymce.init({
+            convert_urls: false,
+            selector: '#DownloadContent',
+            height: 400,
+            plugins: 'print preview code searchreplace autolink directionality visualblocks visualchars fullscreen image link media codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount imagetools contextmenu colorpicker textpattern help filemanager',
+            toolbar: 'formatselect styleselect | bold italic forecolor backcolor | link filemanager | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat'
+        });
+
+        layui.config({
+            base: '/js/modules/'
+        }).use(['layer', 'jquery', 'api', 'form'], function () {
+            var form = layui.form,
+                $ = layui.$,
+                sort = 0,
+                api = layui.api,
+                index = parent.layer.getFrameIndex(window.name);
+
+            $('.panel-addpic').css({ 'min-height': $(window).height() - 95 });
+
+            api.cloudFile();
+
+            active = {
+                setContent(src) {
+                    tinyMCE.editors[0].execCommand('mceInsertContent', false, '<p><img src="' + src + '" /></p>')
+                },
+            };
+
+            //监听提交
+            form.on('submit(submit)', function (data) {
+
+                //$('#submit').attr('disabled', true).find('i').removeClass('layui-hide');
+                var url = "Ado/Download/Add";
+                if ($("#ID").val()) {
+                    url = "Ado/Download/Update";
+                }
+
+                data.field.DownloadContent = tinyMCE.editors[0].getContent();
+                data.field.IsTop = data.field.IsTop === 'on' ? true : false;
+                data.field.IsHot = data.field.IsHot === 'on' ? true : false;
+                data.field.IsLink = data.field.IsLink === 'on' ? true : false;
+                data.field.IsComment = data.field.IsComment === 'on' ? true : false;
+                data.field.IsEncrypt = data.field.IsEncrypt === 'on' ? true : false;
+                data.field.Sort = sort;
+
+                api.ajax(url, 'POST', data.field, function (res) {
+                    //$('#submit').attr('disabled', false).find('i').addClass('layui-hide');
+                    if (res.statusCode === 200) {
+                        api.success(res.msg);
+                       // parent.layer.close(index);
+                    } else {
+                        api.error(res.msg);
+                    }
+                });
+                return false;
+            });
+            $(".btn-open-close").on('click', function () {
+                parent.layer.close(index);
+            });
+        });
+    </script>
+}

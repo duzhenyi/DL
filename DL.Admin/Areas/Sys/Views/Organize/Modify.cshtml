@@ -1,0 +1,136 @@
+﻿@{
+    ViewData["Title"] = "组织部门";
+}
+@model SysOrganize
+
+<style>
+    .select-tree {
+        position: absolute;
+        background-color: #fff;
+        padding: 5px 15px;
+        z-index: 1000;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+        border-radius: 4px;
+        opacity: 0;
+        height: 0;
+        display: none;
+    }
+
+        .select-tree.active {
+            display: block;
+            opacity: 1;
+            height: auto;
+            max-height: 300px;
+            overflow: auto;
+            transition: all .5s;
+        }
+</style>
+
+<form class="layui-form form-cus" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">上级</label>
+        <div class="layui-input-block">
+            <input type="text" name="ParentName" id="ParentName" value="@Model.ParentName" readonly placeholder="请选择所属部门" class="layui-input">
+            <div id="tree" class="layui-tree-cus select-tree"></div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="Name" value="@Model.Name" lay-verify="required" lay-verType="tips" autocomplete="off" placeholder="请输入名称" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序</label>
+        <div class="layui-input-block">
+            <input type="number" name="Sort" value="@Model.Sort" lay-verify="required" lay-verType="tips" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否有效</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="IsEnable" lay-skin="switch" lay-text="启用|冻结" value="true" @(Model.IsEnable ? "checked" : "")>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+            <input type="text" name="Remark" value="@Model.Remark" placeholder="请输入备注" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item layui-cur-submit">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="submit" id="submit"><i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-hide"></i>立即提交</button>
+            <button type="button" class="layui-btn layui-btn-primary btn-open-close">取消</button>
+        </div>
+    </div>
+    <input type="hidden" name="ID" id="ID" value="@Model.ID" />
+    <input type="hidden" name="ParentID" id="ParentID" value="@Model.ParentId" />
+    <input type="hidden" name="Layer" id="Layer" value="@Model.Layer" />
+    <input type="hidden" name="CreateTime" id="CreateTime" value="@Model.CreateTime" />
+    <input type="hidden" name="Creator" id="Creator" value="@Model.Creator" />
+</form>
+@section Scripts{
+    <script type="text/javascript">
+        layui.config({
+            base: '/js/modules/'
+        }).use(['layer', 'jquery', 'api', 'form', 'tree'], function () {
+
+            var form = layui.form,
+                $ = layui.$,
+                api = layui.api,
+                tree = layui.tree;
+
+            var index = parent.layer.getFrameIndex(window.name);
+
+            var active = {
+                loadtree() {
+                    api.ajax('Sys/Organize/GetTree', 'GET', {}, function (res) {
+                        tree.render({
+                            elem: '#tree',
+                            data: res,
+                            onlyIconControl: true,
+                            click: function (obj) {
+                                $("#ParentID").val(obj.data.id);
+                                $("#ParentName").val(obj.data.title);
+                                $(".select-tree").removeClass('active');
+                            }
+                        });
+                    });
+                }
+            };
+
+            active.loadtree();
+            $("#ParentName").click(function () {
+                $(".select-tree").addClass('active');
+            });
+            $(".select-tree").mouseleave(function () {
+                $(".select-tree").removeClass('active');
+            });
+
+            //监听提交
+            form.on('submit(submit)', function (data) {
+                $('#submit').attr('disabled', true).find('i').removeClass('layui-hide');
+                var url = "Sys/Organize/Add";
+
+                if ($("#ID").val()) {
+                    url = "Sys/Organize/Update";
+                }
+
+                api.ajax(url, 'POST', data.field, function (res) {
+                    $('#submit').attr('disabled', false).find('i').addClass('layui-hide');
+                    if (res.statusCode === 200) {
+                        api.success(res.msg);
+                        parent.layer.close(index);
+                    } else {
+                        api.error(res.msg);
+                    }
+                });
+                return false;
+            });
+            $(".btn-open-close").on('click', function () {
+                parent.layer.close(index);
+            });
+        });
+    </script>
+}

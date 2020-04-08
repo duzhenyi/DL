@@ -1,0 +1,46 @@
+﻿using DL.Domain.Models.{AreaName}Models;
+using DL.Domain.PublicModels;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using DL.IService;
+{UsingDto}
+
+namespace DL.IService.{AreaName}IService
+{
+    /// <summary>
+    /// {DescName}
+    /// </summary>
+    public interface I{ModelName}Service : IBaseService<{ModelName}>
+    {
+        /// <summary>
+        /// 添加一条数据
+        /// </summary>
+        /// <returns></returns>
+        Task<ApiResult<string>> AddAsync({ModelName} model);
+
+        /// <summary>
+        /// 删除多条数据
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        Task<ApiResult<string>> DelAsync(string ids);
+
+        /// <summary>
+        /// 修改一条数据
+        /// </summary>
+        /// <returns></returns>
+        Task<ApiResult<string>> ModifyAsync({ModelName} model);
+
+        /// <summary>
+        /// 获得一条数据
+        /// </summary>
+        /// <returns></returns>
+        Task<ApiResult<{ModelName}>> GetByIDAsync(string parm);
+
+        /// <summary>
+        /// 获得列表
+        /// </summary>
+        /// <returns></returns>
+        Task<ApiResult<PageReply<{ModelName}>>> GetPagesAsync({PageParm}PageParm pageParm);
+    }
+}

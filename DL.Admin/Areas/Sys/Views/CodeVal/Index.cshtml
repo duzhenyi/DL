@@ -1,0 +1,203 @@
+﻿@{
+    ViewData["Title"] = "字典管理";
+}
+
+<div id="container">
+    <!--左侧字典类型-->
+    <div class="layui-col-220">
+        <div class="layui-nav-title">字典管理　<button class="layui-btn layui-btn-sm" id="code-class-add"><i class="layui-icon layui-icon-add-1"></i>添加</button></div>
+        <div id="tree" class="layui-tree-cus" style="min-height:300px;"></div>
+        <div class="tree-footer" style="text-align:center;">
+            <button type="button" class="layui-btn layui-btn-sm" data-type="typeUpdate"><i class="layui-icon layui-icon-edit"></i> 修改</button>
+            <button type="button" class="layui-btn layui-btn-sm" data-type="typeDel"><i class="layui-icon layui-icon-delete"></i> 删除</button>
+        </div>
+    </div>
+
+    <!--右侧字典值-->
+    <div class="right-col-body">
+        <div class="list-wall">
+            <div class="layui-form list-search">
+                <button type="button" class="layui-btn layui-btn-sm" data-type="codeAdd"><i class="layui-icon layui-icon-add-1"></i> 新增</button>
+                <button type="button" class="layui-btn layui-btn-sm" data-type="codeDel"><i class="layui-icon layui-icon-delete"></i> 删除</button>
+            </div>
+            <table class="layui-hide" id="tablist" lay-filter="tbFilter"></table>
+        </div>
+    </div>
+    <script type="text/html" id="isEnableSwitch">
+        <input type="checkbox" name="IsEnable" value="{{d.ID}}" lay-skin="switch" lay-text="启用|冻结" lay-filter="statusedit" {{ d.IsEnable?'checked':''}} disabled="">
+    </script>
+    <script type="text/html" id="editTool">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i> 修改</a>
+    </script>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        layui.config({
+            base: '/js/modules/'
+        }).use(['table', 'layer', 'jquery', 'tree', 'api'],
+            function () {
+                var table = layui.table,
+                    layer = layui.layer,
+                    $ = layui.jquery,
+                    tree = layui.tree,
+                    api = layui.api,
+                    form = layui.form;
+
+                table.render({
+                    elem: '#tablist',
+                    id: 'tables',
+                    page: true,
+                    headers: api.getToken(),
+                    url: '/Sys/CodeVal/GetPages',
+                    page: { limits: [10, 20, 50, 100], groups: 8 },
+                    cols: [
+                        [
+                            { type: 'checkbox', fixed: 'left' },
+                            { field: 'Name', title: '字典名称', sort: true, fixed: 'left' },
+                            { field: 'Val', title: '阈值' },
+                            { field: 'Sort', title: '顺序', sort: true },
+                            { field: 'IsEnable', title: '启用标记', templet: '#isEnableSwitch' },
+                            { field: 'Creator', title: '创建人' },
+                            { field: 'CreateTime', title: '创建时间', sort: true },
+                            { field: 'Remark', title: '备注' },
+                            { title: '操作', templet: '#editTool' }
+                        ]
+                    ]
+                });
+
+                //右侧表格编辑
+                form.on('switch(statusedit)', function (obj) {
+                    var index = layer.load(1, {
+                        shade: [0.1, '#000']
+                    });
+                    api.ajax('Sys/CodeVal/UpdateStatus', 'post', { pid: this.value, status: obj.elem.checked }, function (res) {
+                        if (res.statusCode === 200) {
+                            api.success('状态更改成功~');
+                            layer.close(index);
+                        } else {
+                            api.error(res.msg);
+                        }
+                    });
+                });
+
+                $('.tree-footer .layui-btn,.list-search .layui-btn').on('click', function () {
+                    var type = $(this).data('type');
+                    active[type] ? active[type].call(this) : '';
+                });
+
+                var codetypeid = '', typeName = '', active = {
+                    //刷新右侧字典值列表
+                    reload: function () {
+                        table.reload('tables',
+                            {
+                                page: {
+                                    curr: 1
+                                },
+                                where: {
+                                    pid: codetypeid
+                                }
+                            });
+                    },
+                    //加载左侧字典树
+                    loadtree() {
+                        api.ajax('Sys/CodeType/GetTree', 'GET', {}, function (res) {
+                            tree.render({
+                                elem: '#tree',
+                                data: res,
+                                onlyIconControl: true,
+                                edit: ['add', 'update', 'del'],
+                                click: function (obj) {
+                                    codetypeid = obj.data.id;
+                                    typeName = obj.data.title;
+                                    active.reload();
+                                    $(".tree-footer").addClass("active");
+                                }
+                            });
+                        });
+                    },
+                    //字典类型修改
+                    typeUpdate: function () {
+                        api.Open('字典修改', '/Sys/CodeType/Modify/?pid=' + codetypeid, '500px', '280px', function () {
+                            active.loadtree();
+                        });
+                    },
+                    //字典类型删除
+                    typeDel: function () {
+                        layer.confirm('确定要删除 ' + typeName + ' 吗？', function (index) {
+                            layer.close(index);
+                            api.ajax('Sys/CodeType/Delete/', 'POST', { ids: codetypeid }, function (res) {
+                                if (res.statusCode === 200) {
+                                    active.loadtree();
+                                    api.success(res.msg);
+                                } else {
+                                    api.error(res.msg);
+                                }
+                            });
+                        });
+
+                    },
+                    //字典值添加
+                    codeAdd: function () {
+                        if (!codetypeid) {
+                            api.error("请选择左侧字典类型~");
+                            return;
+                        }
+                        api.Open('添加字典值', '/Sys/CodeVal/Modify/?id=' + codetypeid, '620px', '400px', function () {
+                            active.reload();
+                        });
+                    },
+                    //字典值删除
+                    codeDel: function () {
+                        var checkStatus = table.checkStatus('tables'), data = checkStatus.data;
+                        if (data.length === 0) {
+                            api.warning("请选择要删除的项目~");
+                            return;
+                        }
+                        var ids = '';
+                        $.each(data, function (i, item) {
+                            ids += item.ID + ",";
+                        });
+                        layer.confirm('确定要执行批量删除吗？', function (index) {
+                            layer.close(index);
+                            var loadindex = layer.load(1, {
+                                shade: [0.1, '#000']
+                            });
+                            api.ajax('Sys/CodeVal/Delete/', 'POST', { ids: ids }, function (res) {
+                                layer.close(loadindex);
+                                if (res.statusCode === 200) {
+                                    active.reload();
+                                    active.loadtree();
+                                    api.success(res.msg);
+                                } else {
+                                    api.error(res.msg);
+                                }
+                            });
+                        });
+
+                    }
+                };
+
+                active.loadtree();
+
+
+                //添加字典类型
+                $('#code-class-add').on('click', function () {
+                    api.Open('字典栏目', '/Sys/CodeType/Modify/', '500px', '280px', function () {
+                        active.loadtree();
+                    });
+                });
+
+                //字典值编辑
+                table.on('tool(tbFilter)', function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'edit') {
+                        api.Open('编辑字典值', '/Sys/CodeVal/  Modify/?id=' + data.ID, '620px', '400px', function () {
+                            active.reload();
+                        })
+                    }
+                });
+            });
+    </script>
+}

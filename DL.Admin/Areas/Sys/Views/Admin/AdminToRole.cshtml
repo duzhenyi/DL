@@ -1,0 +1,141 @@
+﻿@{
+    ViewData["Title"] = "为用户分配角色";
+}
+<style>
+    .layui-table-view {
+        margin-top: 0px;
+    }
+
+    .layui-col-220 {
+        width: 200px;
+    }
+
+    .right-col-body {
+        left: 200px;
+    }
+
+    .list-wall {
+        padding-top: 0px;
+    }
+
+    .fyt-center {
+        text-align: center;
+    }
+
+    #tree {
+        height: 350px;
+        overflow: auto;
+    }
+
+    .layui-layer-loading {
+        box-shadow: 0 0px 0px rgba(0, 0, 0, .3) !important;
+    }
+</style>
+<div class="layui-col-220">
+    <div id="tree" class="layui-tree-cus"></div>
+</div>
+<div class="right-col-body">
+    <div class="list-wall" style="margin-top:15px;">
+        <table class="layui-hide" id="tablist" lay-filter="torole"></table>
+    </div>
+</div>
+
+<script type="text/html" id="tool">
+    <input type="checkbox" name="status" value="{{d.guid}}" lay-skin="switch" lay-text="取消|授权" lay-filter="torole" {{ d.status ? 'checked' : '' }}>
+</script>
+<input type="hidden" id="adminID" value="@ViewBag.AdminID" />
+@section Scripts{
+    <script type="text/javascript">
+        layui.config({
+    base: '/js/modules/'
+}).use(['table', 'layer', 'jquery', 'tree', 'api'],
+    function () {
+        var table = layui.table,
+            layer = layui.layer,
+            $ = layui.jquery,
+            api = layui.api,
+            tree = layui.tree,
+            form = layui.form;
+
+        table.render({
+            elem: '#tablist',
+            headers: api.getToken(),
+            page: false,
+            where: { limit: 1000 },
+            id: 'tables',
+            url: '/Sys/Role/ToroleList?adminID=' + $('#adminID').val(),
+            cols: [
+                [
+                    { type: 'checkbox', fixed: 'left' },
+                    {
+                        field: 'name', title: '角色名称', sort: true, fixed: 'left', templet: function (d) {
+                            if (d.level == 0) {
+                                return d.name + '<span class="layui-badge layui-bg-cyan">组</span>';
+                            } else {
+                                return d.name;
+                            }
+                        }
+                    },
+                    { field: 'codes', title: '编号' },
+                    { width: 100, title: '操作', templet: '#tool' }
+                ]
+            ]
+        });
+
+        var organizeID = '', active = {
+            reload: function () {
+                table.reload('tables',
+                    {
+                        page: false,
+                        where: {
+                            deparmentID: organizeID,
+                            limit: 1000
+                        }
+                    });
+            },
+            loadtree() {
+                api.ajax('Sys/Organize/GetTree/', 'GET', {}, function (res) {
+                    tree.render({
+                        elem: '#tree',
+                        data: res,
+                        onlyIconControl: true,
+                        click: function (obj) {
+                            organizeID = obj.data.id;
+                            active.reload();
+                        }
+                    });
+                });
+            }
+        };
+
+        active.loadtree();
+
+        $('.list-search .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        //监听授权操作
+        form.on('switch(torole)', function (obj) {
+            var strRole = this.value;
+            //开始提交信息
+            var index = layer.load(1, {
+                shade: [0.1, '#fff']
+            });
+            api.ajax("Sys/RoleMenu/ToRole", 'post', { AdminID: $('#adminID').val(), RoleID: strRole, Types: 2, status: obj.elem.checked }, function (res) {
+                layer.close(index);
+                if (res.statusCode === 200) {
+                    if (obj.elem.checked) {
+                        api.success('授权成功~');
+                    }
+                    else {
+                        api.success('取消授权~');
+                    }
+                } else {
+                    api.error(res.msg);
+                }
+            });
+        });
+    }); 
+    </script>
+}

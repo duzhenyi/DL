@@ -1,0 +1,115 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup> 
+    <Compile Remove="wwwroot\upload\cse\**" /> 
+    <Compile Remove="wwwroot\upload\head\**" /> 
+    <Content Remove="%2a%2a\**" /> 
+    <Content Remove="wwwroot\upload\cse\**" /> 
+    <Content Remove="wwwroot\upload\head\**" />
+    <Content Remove="wwwroot\新文件夹\**" />
+    <EmbeddedResource Remove="%2a%2a\**" />
+    <EmbeddedResource Remove="wwwroot\upload\cse\**" />
+    <EmbeddedResource Remove="wwwroot\upload\head\**" />
+    <EmbeddedResource Remove="wwwroot\新文件夹\**" />
+    <None Remove="%2a%2a\**" />
+    <None Remove="wwwroot\upload\cse\**" />
+    <None Remove="wwwroot\upload\head\**" />
+    <None Remove="wwwroot\新文件夹\**" />
+  </ItemGroup>
+
+   
+
+  <ItemGroup>
+    <Content Remove="%2a%2a\%2a.config" />
+    <Content Remove="%2a%2a\%2a.cshtml" />
+    <Content Remove="%2a%2a\%2a.json" />
+    <Content Remove="%2a%2a\%2a.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="%2a%2a/%2a.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="%2a%2a/%2a" />
+    <None Remove="Areas\Builder\Data\Controller.txt" />
+    <None Remove="Areas\Builder\Data\DtoModel.txt" />
+    <None Remove="Areas\Builder\Data\Index.txt" />
+    <None Remove="Areas\Builder\Data\IService.txt" />
+    <None Remove="Areas\Builder\Data\Model.txt" />
+    <None Remove="Areas\Builder\Data\Modify.txt" />
+    <None Remove="Areas\Builder\Data\Service.txt" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\Builder\Data\Controller.txt" />
+    <EmbeddedResource Include="Areas\Builder\Data\Index.txt" />
+    <EmbeddedResource Include="Areas\Builder\Data\IService.txt" />
+    <EmbeddedResource Include="Areas\Builder\Data\DtoModel.txt" />
+    <EmbeddedResource Include="Areas\Builder\Data\Model.txt" />
+    <EmbeddedResource Include="Areas\Builder\Data\Service.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Sys\Views\Admin\AdminModify.cshtml" />
+    <None Include="Areas\Sys\Views\Admin\AdminToRole.cshtml" />
+    <None Include="Areas\Sys\Views\Admin\Index.cshtml" />
+    <None Include="Areas\Sys\Views\Authorization\Index.cshtml" />
+    <None Include="Areas\Sys\Views\Img\Index.cshtml" />
+    <None Include="Areas\Sys\Views\CodeVal\Index.cshtml" />
+    <None Include="Areas\Sys\Views\CodeVal\Modify.cshtml" />
+    <None Include="Areas\Sys\Views\Log\Index.cshtml" />
+    <None Include="Areas\Sys\Views\Menu\Index.cshtml" />
+    <None Include="Areas\Sys\Views\Menu\Modify.cshtml" />
+    <None Include="Areas\Sys\Views\Organize\Index.cshtml" />
+    <None Include="Areas\Sys\Views\Organize\Modify.cshtml" />
+    <None Include="Areas\Sys\Views\Role\Index.cshtml" />
+    <None Include="Areas\Sys\Views\Role\RoleMenu.cshtml" />
+    <None Include="Areas\Sys\Views\Role\Modify.cshtml" />
+    <None Include="Areas\Sys\Views\_ViewImports.cshtml" />
+    <None Include="Areas\Sys\Views\_ViewStart.cshtml" />
+    <None Include="wwwroot\js\modules\treeTable\treeTable.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
+    <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="1.6.1" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.0" />
+    <PackageReference Include="ServiceStack.Text" Version="5.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DL.Domain\DL.Domain.csproj" />
+    <ProjectReference Include="..\DL.IService\DL.IService.csproj" />
+    <ProjectReference Include="..\DL.Service\DL.Service.csproj" />
+    <ProjectReference Include="..\DL.Utils\DL.Utils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Areas\Builder\Data\Modify.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Builder\Models\" />
+    <Folder Include="Areas\Sys\Data\" />
+    <Folder Include="Areas\Sys\Models\" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
+</Project>

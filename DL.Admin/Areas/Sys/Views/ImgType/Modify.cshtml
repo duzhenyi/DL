@@ -1,0 +1,112 @@
+﻿@{
+    ViewData["Title"] = "图片类型修改";
+}
+@model SysImgType
+
+<div id="c-type-wall">
+    <form class="layui-form form-cus" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">上级分类</label>
+            <div class="layui-input-block">
+                <input type="text" name="ParentName" id="ParentName" value="@Model.ParentName" readonly placeholder="请选择所属上级" class="layui-input">
+                <div id="tree" class="layui-tree-cus select-tree"></div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">中文名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="Name" value="@Model.Name" maxlength="30" lay-verify="required" lay-verType="tips" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">英文名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="EnName" value="@Model.EnName" lay-verify="required" lay-verType="tips" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否有效</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="IsEnable" lay-skin="switch" lay-text="启用|冻结" value="true" @(Model.IsEnable ? "checked" : "")>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="submit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary btn-open-close" @@click="closeType">取消</button>
+            </div>
+        </div>
+
+        <input type="hidden" name="Types" id="Types" value="@Model.Types" />
+        <input type="hidden" name="ID" id="ID" value="@Model.ID" />
+        <input type="hidden" name="ParentID" id="ParentID" value="@Model.ParentId" />
+        <input type="hidden" name="Layer" id="Layer" value="@Model.Layer" />
+        <input type="hidden" name="CreateTime" id="CreateTime" value="@Model.CreateTime" />
+        <input type="hidden" name="Creator" id="Creator" value="@Model.Creator" />
+    </form>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        layui.config({
+            base: '/js/modules/'
+        }).use(['layer', 'jquery', 'api', 'form', 'tree'], function () {
+
+            var form = layui.form,
+                $ = layui.$,
+                api = layui.api,
+                tree = layui.tree;
+
+            var index = parent.layer.getFrameIndex(window.name);
+
+            var active = {
+                loadtree() {
+                    api.ajax('Sys/ImgType/GetTree', 'GET', {}, function (res) {
+                        tree.render({
+                            elem: '#tree',
+                            data: res,
+                            onlyIconControl: true,
+                            click: function (obj) {
+                                $("#ParentID").val(obj.data.id);
+                                $("#ParentName").val(obj.data.title);
+                                $(".select-tree").removeClass('active');
+                            }
+                        });
+                    });
+                }
+            };
+
+            active.loadtree();
+            $("#ParentName").click(function () {
+                $(".select-tree").addClass('active');
+            });
+            $(".select-tree").mouseleave(function () {
+                $(".select-tree").removeClass('active');
+            });
+
+            //监听提交
+            form.on('submit(submit)', function (data) {
+                $('#submit').attr('disabled', true).find('i').removeClass('layui-hide');
+                var url = "Sys/ImgType/Add";
+
+                if ($("#ID").val()) {
+                    url = "Sys/ImgType/Update";
+                }
+
+                api.ajax(url, 'POST', data.field, function (res) {
+                    $('#submit').attr('disabled', false).find('i').addClass('layui-hide');
+                    if (res.statusCode === 200) {
+                        api.success(res.msg);
+                        parent.layer.close(index);
+                    } else {
+                        api.error(res.msg);
+                    }
+                });
+                return false;
+            });
+            $(".btn-open-close").on('click', function () {
+                parent.layer.close(index);
+            });
+        });
+    </script>
+}
+
